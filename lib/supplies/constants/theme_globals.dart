@@ -105,6 +105,7 @@ const grey100Color = Color(0xffF7F7F7);
 const appleColor = Color(0xff333333);
 const colorDark = Color(0xFF151515);
 const brownColor = Color(0xff4B3425);
+const secondaryBrownColor = Color(0xff926247);
 const lightBrownColor = Color(0xffF7F4F2);
 const lightGreenColor = Color(0xffF2F5EB);
 const lighterGreenColor = Color(0xffE5EAD7);
@@ -112,6 +113,7 @@ const orangeColor = Color(0xffFE814B);
 const yellowColor = Color(0xffFFBD1A);
 const mindfulBrownColor = Color(0xffD5C2B9);
 const lightOrangeColor = Color(0xffFFD2C2);
+const purpleColor = Color(0xffA18FFF);
 
 // TRANSITIONS
 const pageTransitionsTheme = PageTransitionsTheme(

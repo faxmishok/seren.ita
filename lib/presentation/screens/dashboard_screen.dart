@@ -5,6 +5,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:serenita/foundation/data/remote/user_related_remote_data.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/foundation/helpers/functions/locator.dart';
+import 'package:serenita/presentation/screens/health_journal_screen.dart';
 import 'package:serenita/presentation/screens/notifications_screen.dart';
 import 'package:serenita/presentation/screens/score_screen.dart';
 import 'package:serenita/presentation/screens/startup_screen.dart';
@@ -32,6 +33,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             title: context.tr('log_out').toUpperCase(),
             width: 100.0,
             height: 40.0,
+            bgColor: brownColor,
             onPressed: () async {
               await getIt<UserRelatedRemoteData>().signOut();
 
@@ -102,7 +104,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AutoSizeText(
-                      'Hi, Jane!',
+                      'Hi, Fahmin!',
                       style: size28weight700.copyWith(color: brownColor),
                     ),
                     Row(
@@ -176,118 +178,173 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _buildMentalHealthMetrics() {
     return Container(
-      padding: spacing16,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AutoSizeText(
-            'Mental Health Metrics',
-            style: size18weight700.copyWith(color: brownColor),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0).copyWith(top: 16.0),
+            child: AutoSizeText(
+              'Mental Health Metrics',
+              style: size18weight700.copyWith(color: brownColor),
+            ),
           ),
           const SizedBox12(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              GestureDetector(
-                onTap: () => context.push(const ScoreScreen()),
-                child: Container(
+          Container(
+            height: 200.0,
+            width: context.width,
+            child: ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              children: [
+                const SizedBox(width: 16.0),
+                GestureDetector(
+                  onTap: () => context.push(const ScoreScreen()),
+                  child: Container(
+                    padding: const EdgeInsets.all(12.0),
+                    width: 165.0,
+                    height: 200.0,
+                    decoration: BoxDecoration(
+                      color: greenColor,
+                      borderRadius: BorderRadius.circular(32.0),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.favorite_outline,
+                              color: whiteColor,
+                            ),
+                            const SizedBox(width: 6.0),
+                            AutoSizeText(
+                              'Score',
+                              style: size16weight700.copyWith(color: whiteColor),
+                            ),
+                          ],
+                        ),
+                        const SizedBox24(),
+                        CircularPercentIndicator(
+                          radius: 60.0,
+                          lineWidth: 10.0,
+                          animation: true,
+                          percent: 0.8,
+                          center: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              AutoSizeText(
+                                '80',
+                                style: size24weight700.copyWith(color: whiteColor),
+                              ),
+                              AutoSizeText(
+                                'Healty',
+                                style: size14weight600.copyWith(color: lighterGreenColor),
+                              ),
+                            ],
+                          ),
+                          circularStrokeCap: CircularStrokeCap.round,
+                          progressColor: whiteColor,
+                          backgroundColor: whiteColor.withValues(alpha: 0.3),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 12.0),
+                Container(
                   padding: const EdgeInsets.all(12.0),
                   width: 165.0,
                   height: 200.0,
                   decoration: BoxDecoration(
-                    color: greenColor,
+                    color: orangeColor,
                     borderRadius: BorderRadius.circular(32.0),
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Icon(
-                            Icons.favorite_outline,
-                            color: whiteColor,
+                          Image.asset(
+                            'assets/images/sad.png',
+                            height: 26.0,
                           ),
                           const SizedBox(width: 6.0),
                           AutoSizeText(
-                            'Score',
+                            'Mood',
                             style: size16weight700.copyWith(color: whiteColor),
                           ),
                         ],
                       ),
-                      const SizedBox24(),
-                      CircularPercentIndicator(
-                        radius: 60.0,
-                        lineWidth: 10.0,
-                        animation: true,
-                        percent: 0.8,
-                        center: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            AutoSizeText(
-                              '80',
-                              style: size24weight700.copyWith(color: whiteColor),
-                            ),
-                            AutoSizeText(
-                              'Healty',
-                              style: size14weight600.copyWith(color: lighterGreenColor),
-                            ),
-                          ],
-                        ),
-                        circularStrokeCap: CircularStrokeCap.round,
-                        progressColor: whiteColor,
-                        backgroundColor: whiteColor.withValues(alpha: 0.3),
+                      AutoSizeText(
+                        'Sad',
+                        style: size24weight700.copyWith(color: whiteColor),
                       ),
+                      const SizedBox24(),
+                      Center(
+                        child: Image.asset(
+                          'assets/images/mood-frame.png',
+                          height: 80.0,
+                        ),
+                      )
                     ],
                   ),
                 ),
-              ),
-              // const SizedBox(width: 6.0),
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                width: 165.0,
-                height: 200.0,
-                decoration: BoxDecoration(
-                  color: orangeColor,
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                const SizedBox(width: 12.0),
+                GestureDetector(
+                  onTap: () => context.push(const HealthJournalScreen()),
+                  child: Container(
+                    padding: const EdgeInsets.all(12.0),
+                    width: 165.0,
+                    height: 200.0,
+                    decoration: BoxDecoration(
+                      color: purpleColor,
+                      borderRadius: BorderRadius.circular(32.0),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Image.asset(
-                          'assets/images/sad.png',
-                          height: 26.0,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.note_add_outlined,
+                              color: whiteColor,
+                            ),
+                            const SizedBox(width: 6.0),
+                            AutoSizeText(
+                              'Health Journal',
+                              style: size14weight700.copyWith(color: whiteColor),
+                            ),
+                          ],
                         ),
-                        const SizedBox(width: 6.0),
                         AutoSizeText(
-                          'Mood',
-                          style: size16weight700.copyWith(color: whiteColor),
+                          '31/365',
+                          style: size24weight700.copyWith(color: whiteColor),
                         ),
+                        const SizedBox24(),
+                        Center(
+                          child: Image.asset(
+                            'assets/images/journal-graph.png',
+                            height: 80.0,
+                          ),
+                        )
                       ],
                     ),
-                    AutoSizeText(
-                      'Sad',
-                      style: size24weight700.copyWith(color: whiteColor),
-                    ),
-                    const SizedBox24(),
-                    Center(
-                      child: Image.asset(
-                        'assets/images/mood-frame.png',
-                        height: 80.0,
-                      ),
-                    )
-                  ],
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(width: 16.0),
+              ],
+            ),
           ),
+          const SizedBox16(),
         ],
       ),
     );
