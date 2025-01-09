@@ -7,7 +7,7 @@ import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/foundation/helpers/classes/validations.dart';
 import 'package:serenita/foundation/services/notification_service.dart';
 import 'package:serenita/foundation/state-logic/sign-in/sign_in_cubit.dart';
-import 'package:serenita/presentation/screens/home_screen.dart';
+import 'package:serenita/presentation/screens/health_goal_screen.dart';
 import 'package:serenita/presentation/screens/sign_up_screen.dart';
 import 'package:serenita/presentation/widgets/common/app_bar_custom.dart';
 import 'package:serenita/presentation/widgets/common/button_custom.dart';
@@ -31,15 +31,17 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lightBrownColor,
       appBar: AppBarCustom(
         title: context.tr('sign_in_to_serenita'),
+        backgroundColor: lightBrownColor,
       ),
       body: BlocProvider(
         create: (context) => _signInCubit,
         child: BlocListener<SignInCubit, SignInState>(
           listener: (context, state) {
             if (state is SignInSuccess) {
-              context.pushAndRemoveUntil(const HomeScreen());
+              context.pushAndRemoveUntil(const HealthGoalScreen());
             }
 
             if (state is SignInFailure) {
@@ -147,7 +149,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     TextSpan(text: '${context.tr('dont_have_an_account')} '),
                     TextSpan(
                       text: context.tr('sign_up'),
-                      style: size13weight600.copyWith(color: primaryColor),
+                      style: size13weight600.copyWith(color: primaryColor, decoration: TextDecoration.underline),
                       recognizer: TapGestureRecognizer()..onTap = () => context.pushReplacement(const SignUpScreen()),
                     ),
                   ],

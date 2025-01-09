@@ -34,6 +34,7 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: automaticallyImplyLeading!,
       leading: leading,
       elevation: 0.0,
+      scrolledUnderElevation: 0.0,
       backgroundColor: backgroundColor,
     );
   }

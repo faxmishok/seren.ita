@@ -15,13 +15,15 @@ void main() async {
 
   Bloc.observer = AppBlocObserver();
 
-  runApp(EasyLocalization(
-    supportedLocales: const [
-      Locale('en'),
-      Locale('it'),
-    ],
-    path: 'assets/translations',
-    fallbackLocale: const Locale('en'),
-    child: const App(),
-  ));
+  runApp(
+    EasyLocalization(
+      supportedLocales: const [
+        Locale('en'),
+        Locale('it'),
+      ],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en'),
+      child: const App(),
+    ),
+  );
 }

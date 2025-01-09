@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:overlay_support/overlay_support.dart';
+import 'package:serenita/foundation/helpers/functions/locator.dart';
 import 'package:serenita/presentation/screens/startup_screen.dart';
 import 'package:serenita/supplies/constants/app_constants.dart';
 
@@ -23,6 +24,7 @@ class _AppState extends State<App> {
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
+          navigatorKey: navigatorKey,
           builder: (context, child) {
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),

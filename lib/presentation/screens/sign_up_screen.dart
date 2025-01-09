@@ -30,8 +30,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: lightBrownColor,
       appBar: AppBarCustom(
         title: context.tr('sign_up'),
+        backgroundColor: lightBrownColor,
       ),
       body: BlocProvider(
         create: (context) => _signUpCubit,
@@ -146,7 +148,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         border: Border(
                           bottom: BorderSide(
                             width: 1.0,
-                            color: grey400Color.withOpacity(0.35),
+                            color: grey400Color.withValues(alpha: 0.35),
                           ),
                         ),
                       ),
@@ -170,7 +172,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         border: Border(
                           bottom: BorderSide(
                             width: 1.0,
-                            color: grey400Color.withOpacity(0.35),
+                            color: grey400Color.withValues(alpha: 0.35),
                           ),
                         ),
                       ),
@@ -222,7 +224,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     TextSpan(text: '${context.tr('already_have_an_account')} '),
                     TextSpan(
                       text: context.tr('sign_in'),
-                      style: size13weight600.copyWith(color: primaryColor),
+                      style: size13weight600.copyWith(color: primaryColor, decoration: TextDecoration.underline),
                       recognizer: TapGestureRecognizer()..onTap = () => context.pushReplacement(const SignInScreen()),
                     ),
                   ],

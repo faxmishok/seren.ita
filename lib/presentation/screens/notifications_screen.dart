@@ -16,7 +16,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF7F4F2),
+      backgroundColor: lightBrownColor,
       appBar: AppBarCustom(
         leading: GestureDetector(
           onTap: () => context.pop(),
@@ -24,7 +24,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             Icons.arrow_back_ios,
           ),
         ),
-        backgroundColor: const Color(0xffF7F4F2),
+        backgroundColor: lightBrownColor,
       ),
       body: _buildBody(),
     );

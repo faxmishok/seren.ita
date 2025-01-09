@@ -5,7 +5,7 @@ import 'package:serenita/foundation/helpers/functions/locator.dart';
 import 'package:serenita/foundation/services/notification_service.dart';
 import 'package:serenita/foundation/state-logic/start-up/start_up_cubit.dart';
 import 'package:serenita/presentation/screens/home_screen.dart';
-import 'package:serenita/presentation/screens/sign_in_screen.dart';
+import 'package:serenita/presentation/screens/landing_screen.dart';
 import 'package:serenita/presentation/screens/splash_screen.dart';
 
 class StartUpScreen extends StatelessWidget {
@@ -26,7 +26,7 @@ class StartUpScreen extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is StartUpUnauthenticated) {
-              return const SignInScreen();
+              return const LandingScreen();
             } else if (state is StartUpAuthenticated) {
               return const HomeScreen();
             }
