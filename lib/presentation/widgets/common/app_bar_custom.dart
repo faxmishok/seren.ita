@@ -8,6 +8,8 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
   final bool? automaticallyImplyLeading;
   final List<Widget>? actions;
   final Widget? leading;
+  final Color? backgroundColor;
+  final Color? titleColor;
 
   const AppBarCustom({
     super.key,
@@ -16,17 +18,23 @@ class AppBarCustom extends StatelessWidget implements PreferredSizeWidget {
     this.automaticallyImplyLeading = true,
     this.actions,
     this.leading,
+    this.backgroundColor = whiteColor,
+    this.titleColor = blackColor,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: assetTitle ?? AutoSizeText('$title'),
+      title: assetTitle ??
+          AutoSizeText(
+            '$title',
+            style: size20weight700.copyWith(color: titleColor),
+          ),
       actions: actions,
       automaticallyImplyLeading: automaticallyImplyLeading!,
       leading: leading,
       elevation: 0.0,
-      backgroundColor: whiteColor,
+      backgroundColor: backgroundColor,
     );
   }
 

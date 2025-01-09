@@ -5,6 +5,8 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:serenita/foundation/data/remote/user_related_remote_data.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/foundation/helpers/functions/locator.dart';
+import 'package:serenita/presentation/screens/notifications_screen.dart';
+import 'package:serenita/presentation/screens/score_screen.dart';
 import 'package:serenita/presentation/screens/startup_screen.dart';
 import 'package:serenita/presentation/widgets/common/app_bar_custom.dart';
 import 'package:serenita/presentation/widgets/common/button_custom.dart';
@@ -82,7 +84,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   style: size12weight700.copyWith(color: grey500Color),
                 ),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () => context.push(const NotificationsScreen()),
                   icon: const Icon(
                     Icons.notifications_outlined,
                     color: brownColor,
@@ -186,57 +188,60 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                width: 165.0,
-                height: 200.0,
-                decoration: BoxDecoration(
-                  color: greenColor,
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.favorite_outline,
-                          color: whiteColor,
-                        ),
-                        const SizedBox(width: 6.0),
-                        AutoSizeText(
-                          'Score',
-                          style: size16weight700.copyWith(color: whiteColor),
-                        ),
-                      ],
-                    ),
-                    const SizedBox24(),
-                    CircularPercentIndicator(
-                      radius: 60.0,
-                      lineWidth: 10.0,
-                      animation: true,
-                      percent: 0.8,
-                      center: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+              GestureDetector(
+                onTap: () => context.push(const ScoreScreen()),
+                child: Container(
+                  padding: const EdgeInsets.all(12.0),
+                  width: 165.0,
+                  height: 200.0,
+                  decoration: BoxDecoration(
+                    color: greenColor,
+                    borderRadius: BorderRadius.circular(32.0),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          AutoSizeText(
-                            '80',
-                            style: size24weight700.copyWith(color: whiteColor),
+                          const Icon(
+                            Icons.favorite_outline,
+                            color: whiteColor,
                           ),
+                          const SizedBox(width: 6.0),
                           AutoSizeText(
-                            'Healty',
-                            style: size14weight600.copyWith(color: lighterGreenColor),
+                            'Score',
+                            style: size16weight700.copyWith(color: whiteColor),
                           ),
                         ],
                       ),
-                      circularStrokeCap: CircularStrokeCap.round,
-                      progressColor: whiteColor,
-                      backgroundColor: whiteColor.withValues(alpha: 0.3),
-                    ),
-                  ],
+                      const SizedBox24(),
+                      CircularPercentIndicator(
+                        radius: 60.0,
+                        lineWidth: 10.0,
+                        animation: true,
+                        percent: 0.8,
+                        center: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            AutoSizeText(
+                              '80',
+                              style: size24weight700.copyWith(color: whiteColor),
+                            ),
+                            AutoSizeText(
+                              'Healty',
+                              style: size14weight600.copyWith(color: lighterGreenColor),
+                            ),
+                          ],
+                        ),
+                        circularStrokeCap: CircularStrokeCap.round,
+                        progressColor: whiteColor,
+                        backgroundColor: whiteColor.withValues(alpha: 0.3),
+                      ),
+                    ],
+                  ),
                 ),
               ),
               // const SizedBox(width: 6.0),

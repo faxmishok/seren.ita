@@ -111,6 +111,7 @@ const lighterGreenColor = Color(0xffE5EAD7);
 const orangeColor = Color(0xffFE814B);
 const yellowColor = Color(0xffFFBD1A);
 const mindfulBrownColor = Color(0xffD5C2B9);
+const lightOrangeColor = Color(0xffFFD2C2);
 
 // TRANSITIONS
 const pageTransitionsTheme = PageTransitionsTheme(
