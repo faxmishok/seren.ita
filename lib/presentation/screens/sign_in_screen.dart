@@ -2,8 +2,11 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/foundation/helpers/classes/validations.dart';
+import 'package:serenita/foundation/services/notification_service.dart';
+import 'package:serenita/foundation/state-logic/sign-in/sign_in_cubit.dart';
 import 'package:serenita/presentation/screens/home_screen.dart';
 import 'package:serenita/presentation/screens/sign_up_screen.dart';
 import 'package:serenita/presentation/widgets/common/app_bar_custom.dart';
@@ -11,6 +14,8 @@ import 'package:serenita/presentation/widgets/common/button_custom.dart';
 import 'package:serenita/presentation/widgets/common/text_field_custom.dart';
 import 'package:serenita/supplies/constants/theme_globals.dart';
 import 'package:serenita/supplies/extensions/build_context_ext.dart';
+
+import '../../foundation/helpers/functions/locator.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -20,6 +25,7 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final _signInCubit = SignInCubit();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -28,7 +34,21 @@ class _SignInScreenState extends State<SignInScreen> {
       appBar: AppBarCustom(
         title: context.tr('sign_in_to_serenita'),
       ),
-      body: _buildBody(),
+      body: BlocProvider(
+        create: (context) => _signInCubit,
+        child: BlocListener<SignInCubit, SignInState>(
+          listener: (context, state) {
+            if (state is SignInSuccess) {
+              context.pushAndRemoveUntil(const HomeScreen());
+            }
+
+            if (state is SignInFailure) {
+              getIt<NotificationService>().notify(context.tr(state.message));
+            }
+          },
+          child: _buildBody(),
+        ),
+      ),
     );
   }
 
@@ -47,7 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 validator: (value) => Validations(context: context).validateEmail(value!),
                 onChanged: (value) {
-                  // _loginCubit.setEmailValue(value);
+                  _signInCubit.setEmailValue(value);
                 },
                 labelText: context.tr('email'),
                 showInputTitle: true,
@@ -62,20 +82,19 @@ class _SignInScreenState extends State<SignInScreen> {
                 textInputAction: TextInputAction.send,
                 validator: (value) => Validations(context: context).validatePassword(value!, strict: false),
                 onChanged: (value) {
-                  // _loginCubit.setPasswordValue(value);
+                  _signInCubit.setPasswordValue(value);
                 },
                 onFieldSubmitted: (val) {
-                  // _loginCubit.logIn();
+                  _signInCubit.logIn();
                 },
               ),
               const SizedBox15(),
               ButtonCustom(
                 title: context.tr('sign_in').toUpperCase(),
                 onPressed: () {
-                  context.push(const HomeScreen());
-                  // if (_formKey.currentState!.validate()) {
-                  // _loginCubit.logIn();
-                  // }
+                  if (_formKey.currentState!.validate()) {
+                    _signInCubit.logIn();
+                  }
                 },
               ),
               const SizedBox24(),

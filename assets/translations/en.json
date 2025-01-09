@@ -17,5 +17,7 @@
     "please_enter_an_email": "Please enter an email",
     "please_enter_a_password": "Please enter a password",
     "please_enter_a_valid_email": "Please enter a valid email",
-    "password_does_not_match": "Password does not match"
+    "password_does_not_match": "Password does not match",
+    "something_went_wrong": "Something went wrong 🤕",
+    "log_out": "Log out"
 }

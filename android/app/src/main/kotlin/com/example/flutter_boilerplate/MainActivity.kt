@@ -1,4 +1,4 @@
-package com.example.serenita
+package com.app.serenita
 
 import io.flutter.embedding.android.FlutterActivity
 

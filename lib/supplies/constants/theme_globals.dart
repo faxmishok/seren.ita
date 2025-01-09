@@ -87,7 +87,7 @@ final size40weight700 = appFontTextStyle.copyWith(fontSize: 40.0, fontWeight: Fo
 // COLORS
 const primaryColor = Color(0xFF5AC2E7);
 const redColor = Color.fromARGB(255, 189, 45, 67);
-const greenColor = Colors.green;
+const greenColor = Color(0xff9BB068);
 const scaffoldBackgroundColor = Colors.white;
 const errorColor = Color(0xffE85050);
 const blackColor = Colors.black;
@@ -104,6 +104,13 @@ const grey200Color = Color(0xffF3F6F8);
 const grey100Color = Color(0xffF7F7F7);
 const appleColor = Color(0xff333333);
 const colorDark = Color(0xFF151515);
+const brownColor = Color(0xff4B3425);
+const lightBrownColor = Color(0xffF7F4F2);
+const lightGreenColor = Color(0xffF2F5EB);
+const lighterGreenColor = Color(0xffE5EAD7);
+const orangeColor = Color(0xffFE814B);
+const yellowColor = Color(0xffFFBD1A);
+const mindfulBrownColor = Color(0xffD5C2B9);
 
 // TRANSITIONS
 const pageTransitionsTheme = PageTransitionsTheme(

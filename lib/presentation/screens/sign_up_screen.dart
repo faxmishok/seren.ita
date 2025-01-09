@@ -2,8 +2,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/foundation/helpers/classes/validations.dart';
+import 'package:serenita/foundation/helpers/functions/locator.dart';
+import 'package:serenita/foundation/services/notification_service.dart';
+import 'package:serenita/foundation/state-logic/sign-up/sign_up_cubit.dart';
+import 'package:serenita/presentation/screens/home_screen.dart';
 import 'package:serenita/presentation/screens/sign_in_screen.dart';
 import 'package:serenita/presentation/widgets/common/app_bar_custom.dart';
 import 'package:serenita/presentation/widgets/common/button_custom.dart';
@@ -19,6 +24,7 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final _signUpCubit = SignUpCubit();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -27,7 +33,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: AppBarCustom(
         title: context.tr('sign_up'),
       ),
-      body: _buildBody(),
+      body: BlocProvider(
+        create: (context) => _signUpCubit,
+        child: BlocListener<SignUpCubit, SignUpState>(
+          listener: (context, state) {
+            if (state is SignUpSuccess) {
+              context.pushAndRemoveUntil(const HomeScreen());
+            }
+
+            if (state is SignUpFailure) {
+              getIt<NotificationService>().notify(context.tr(state.message));
+            }
+          },
+          child: _buildBody(),
+        ),
+      ),
     );
   }
 
@@ -47,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 validator: (value) => Validations(context: context).validateInputText(value!),
                 onChanged: (value) {
-                  // _registrationCubit.setFirstNameValue(value);
+                  _signUpCubit.setFirstNameValue(value);
                 },
                 labelText: context.tr('first_name'),
                 showInputTitle: true,
@@ -59,7 +79,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 keyboardType: TextInputType.name,
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 onChanged: (value) {
-                  // _registrationCubit.setLastNameValue(value);
+                  _signUpCubit.setLastNameValue(value);
                 },
                 labelText: '${context.tr('last_name')} (${context.tr('optional')})',
                 placeholder: context.tr('last_name'),
@@ -73,7 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 validator: (value) => Validations(context: context).validateEmail(value!),
                 onChanged: (value) {
-                  // _registrationCubit.setEmailValue(value);
+                  _signUpCubit.setEmailValue(value);
                 },
                 labelText: context.tr('email'),
                 showInputTitle: true,
@@ -88,7 +108,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 textInputAction: TextInputAction.send,
                 validator: (value) => Validations(context: context).validatePassword(value!, strict: true),
                 onChanged: (value) {
-                  // _registrationCubit.setPasswordValue(value);
+                  _signUpCubit.setPasswordValue(value);
                 },
               ),
               const SizedBox12(),
@@ -99,64 +119,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 showInputTitle: true,
                 floatingLabelBehavior: FloatingLabelBehavior.never,
                 textInputAction: TextInputAction.send,
-                // validator: (value) => Validations(context: context).validateConfirmPassword(value: value, password: _registrationCubit.passwordFieldValue),
+                validator: (value) => Validations(context: context).validateConfirmPassword(value: value, password: _signUpCubit.passwordFieldValue),
                 onChanged: (value) {
-                  // _registrationCubit.setConfirmPasswordValue(value);
+                  _signUpCubit.setConfirmPasswordValue(value);
                 },
                 onFieldSubmitted: (val) {
-                  // _registrationCubit.register();
+                  _signUpCubit.signUp();
                 },
               ),
-              // const SizedBox16(),
-              // RichText(
-              //   text: TextSpan(
-              //     style: size13weight400.copyWith(color: grey800Color),
-              //     children: [
-              //       TextSpan(text: '${context.tr('by_creating_account_means_you_agree_to_the')} '),
-              //       TextSpan(
-              //         text: context.tr('terms_and_conditions'),
-              //         style: size13weight600.copyWith(color: primaryColor),
-              //         recognizer: TapGestureRecognizer()
-              //           ..onTap = () {
-              //             showModalBottomSheet(
-              //               context: context,
-              //               isScrollControlled: true,
-              //               builder: (_) {
-              //                 return const FractionallySizedBox(
-              //                   heightFactor: 0.8,
-              //                   // child: TermsAndConditionsScreen(),
-              //                 );
-              //               },
-              //             );
-              //           },
-              //       ),
-              //       TextSpan(text: ' ${context.tr('and_our')} '),
-              //       TextSpan(
-              //         text: context.tr('privacy_policy'),
-              //         style: size13weight600.copyWith(color: primaryColor),
-              //         recognizer: TapGestureRecognizer()
-              //           ..onTap = () {
-              //             showModalBottomSheet(
-              //               context: context,
-              //               isScrollControlled: true,
-              //               builder: (_) {
-              //                 return const FractionallySizedBox(
-              //                   heightFactor: 0.8,
-              //                   // child: PrivacyPolicyScreen(),
-              //                 );
-              //               },
-              //             );
-              //           },
-              //       ),
-              //     ],
-              //   ),
-              // ),
               const SizedBox16(),
               ButtonCustom(
                 title: context.tr('sign_up').toUpperCase(),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    // _registrationCubit.register();
+                    _signUpCubit.signUp();
                   }
                 },
               ),
