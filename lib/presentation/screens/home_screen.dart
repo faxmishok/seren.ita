@@ -1,7 +1,12 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/presentation/screens/dashboard_screen.dart';
+import 'package:serenita/presentation/screens/sleep_time_screen.dart';
+import 'package:serenita/presentation/widgets/common/button_custom.dart';
 import 'package:serenita/supplies/constants/theme_globals.dart';
+import 'package:serenita/supplies/extensions/build_context_ext.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,7 +34,124 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),
         backgroundColor: greenColor,
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24.0)),
+            ),
+            backgroundColor: lightBrownColor,
+            builder: (context) {
+              return FractionallySizedBox(
+                heightFactor: 0.65,
+                child: Container(
+                  padding: spacing16,
+                  child: Column(
+                    children: [
+                      const Spacer(),
+                      AutoSizeText(
+                        'Which activity would you like to do?',
+                        textAlign: TextAlign.center,
+                        style: size32weight800.copyWith(
+                          color: brownColor,
+                          letterSpacing: -1,
+                        ),
+                      ),
+                      const Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildActivityItem(
+                            text: 'GAMES',
+                            backgroundColor: greenColor,
+                            textColor: whiteColor,
+                          ),
+                          const SizedBox(width: 12.0),
+                          _buildActivityItem(
+                            text: 'WALKING',
+                            backgroundColor: lightBrownColor,
+                            textColor: brownColor,
+                            borderColor: brownColor,
+                          ),
+                        ],
+                      ),
+                      const SizedBox12(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildActivityItem(
+                            text: 'SLEEP',
+                            backgroundColor: orangeColor,
+                            textColor: whiteColor,
+                            onTap: () {
+                              context.push(SleepTimeScreen());
+                            },
+                          ),
+                          const SizedBox(width: 12.0),
+                          _buildActivityItem(
+                            text: 'DANCE',
+                            backgroundColor: lightBrownColor,
+                            textColor: brownColor,
+                            borderColor: brownColor,
+                          ),
+                          const SizedBox(width: 12.0),
+                          _buildActivityItem(
+                            text: 'YOGA',
+                            backgroundColor: lightBrownColor,
+                            textColor: brownColor,
+                            borderColor: brownColor,
+                          ),
+                        ],
+                      ),
+                      const SizedBox12(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildActivityItem(
+                            text: 'RUNNING',
+                            backgroundColor: lightBrownColor,
+                            textColor: brownColor,
+                            borderColor: brownColor,
+                          ),
+                          const SizedBox(width: 12.0),
+                          _buildActivityItem(
+                            text: 'MEDITATION',
+                            backgroundColor: lightBrownColor,
+                            textColor: brownColor,
+                            borderColor: brownColor,
+                          ),
+                        ],
+                      ),
+                      const SizedBox12(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildActivityItem(
+                            text: 'JOG',
+                            backgroundColor: lightBrownColor,
+                            textColor: brownColor,
+                            borderColor: brownColor,
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      ButtonCustom(
+                        borderRadius: 100.0,
+                        bgColor: brownColor,
+                        title: 'Continue',
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w800,
+                        height: 60.0,
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+        },
         child: const Icon(
           Icons.add,
           color: whiteColor,
@@ -51,7 +173,30 @@ class _HomeScreenState extends State<HomeScreen> {
         activeColor: brownColor,
         inactiveColor: mindfulBrownColor,
         onTap: (index) => setState(() => currentPageIndex = index),
-        //other params
+      ),
+    );
+  }
+
+  Widget _buildActivityItem({
+    String? text,
+    Color? textColor,
+    Color? backgroundColor,
+    Color? borderColor,
+    Function? onTap,
+  }) {
+    return GestureDetector(
+      onTap: () => onTap!(),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 32.0),
+        decoration: BoxDecoration(
+          color: backgroundColor,
+          borderRadius: BorderRadius.circular(100.0),
+          border: borderColor != null ? Border.all(color: borderColor) : const Border(),
+        ),
+        child: AutoSizeText(
+          text!,
+          style: size16weight700.copyWith(color: textColor),
+        ),
       ),
     );
   }

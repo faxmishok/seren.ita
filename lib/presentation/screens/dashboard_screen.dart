@@ -6,6 +6,7 @@ import 'package:serenita/foundation/data/remote/user_related_remote_data.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/foundation/helpers/functions/locator.dart';
 import 'package:serenita/presentation/screens/health_journal_screen.dart';
+import 'package:serenita/presentation/screens/mood_screen.dart';
 import 'package:serenita/presentation/screens/notifications_screen.dart';
 import 'package:serenita/presentation/screens/score_screen.dart';
 import 'package:serenita/presentation/screens/startup_screen.dart';
@@ -262,45 +263,48 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
               ),
               const SizedBox(width: 12.0),
-              Container(
-                padding: const EdgeInsets.all(12.0),
-                width: 165.0,
-                height: 200.0,
-                decoration: BoxDecoration(
-                  color: orangeColor,
-                  borderRadius: BorderRadius.circular(32.0),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/images/sad.png',
-                          height: 26.0,
-                        ),
-                        const SizedBox(width: 6.0),
-                        AutoSizeText(
-                          'Mood',
-                          style: size16weight700.copyWith(color: whiteColor),
-                        ),
-                      ],
-                    ),
-                    AutoSizeText(
-                      'Sad',
-                      style: size24weight700.copyWith(color: whiteColor),
-                    ),
-                    const SizedBox24(),
-                    Center(
-                      child: Image.asset(
-                        'assets/images/mood-frame.png',
-                        height: 80.0,
+              GestureDetector(
+                onTap: () => context.push(const MoodScreen()),
+                child: Container(
+                  padding: const EdgeInsets.all(12.0),
+                  width: 165.0,
+                  height: 200.0,
+                  decoration: BoxDecoration(
+                    color: orangeColor,
+                    borderRadius: BorderRadius.circular(32.0),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/sad.png',
+                            height: 26.0,
+                          ),
+                          const SizedBox(width: 6.0),
+                          AutoSizeText(
+                            'Mood',
+                            style: size16weight700.copyWith(color: whiteColor),
+                          ),
+                        ],
                       ),
-                    )
-                  ],
+                      AutoSizeText(
+                        'Sad',
+                        style: size24weight700.copyWith(color: whiteColor),
+                      ),
+                      const SizedBox24(),
+                      Center(
+                        child: Image.asset(
+                          'assets/images/mood-frame.png',
+                          height: 80.0,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(width: 12.0),
