@@ -129,11 +129,20 @@ class _HealthJournalScreenState extends State<HealthJournalScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AutoSizeText(
-            'Journal History',
-            style: size18weight700.copyWith(color: brownColor),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AutoSizeText(
+                'Journal History',
+                style: size18weight700.copyWith(color: brownColor),
+              ),
+              IconButton(
+                icon: const Icon(Icons.more_vert),
+                color: const Color(0xff1F160F).withValues(alpha: 0.32),
+                onPressed: () {},
+              ),
+            ],
           ),
-          const SizedBox12(),
           Image.asset('assets/images/journal-history.png'),
           const SizedBox24(),
           Container(

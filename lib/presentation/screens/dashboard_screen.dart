@@ -192,12 +192,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0).copyWith(top: 16.0),
-          child: AutoSizeText(
-            'Mental Health Metrics',
-            style: size18weight700.copyWith(color: brownColor),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AutoSizeText(
+                'Mental Health Metrics',
+                style: size18weight700.copyWith(color: brownColor),
+              ),
+              IconButton(
+                icon: const Icon(Icons.more_vert),
+                color: const Color(0xff1F160F).withValues(alpha: 0.32),
+                onPressed: () {},
+              ),
+            ],
           ),
         ),
-        const SizedBox12(),
         SizedBox(
           height: 200.0,
           width: context.width,
@@ -367,11 +376,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          AutoSizeText(
-            'Today’s Activities Tracker',
-            style: size18weight700.copyWith(color: brownColor),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AutoSizeText(
+                'Today’s Activities Tracker',
+                style: size18weight700.copyWith(color: brownColor),
+              ),
+              IconButton(
+                icon: const Icon(Icons.more_vert),
+                color: const Color(0xff1F160F).withValues(alpha: 0.32),
+                onPressed: () {},
+              ),
+            ],
           ),
-          const SizedBox12(),
           Column(
             spacing: 12.0,
             children: [

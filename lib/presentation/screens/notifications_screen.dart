@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/presentation/widgets/common/app_bar_custom.dart';
@@ -13,6 +14,8 @@ class NotificationsScreen extends StatefulWidget {
 }
 
 class _NotificationsScreenState extends State<NotificationsScreen> {
+  CollectionReference collection = FirebaseFirestore.instance.collection('Notifications');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +29,20 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         ),
         backgroundColor: lightBrownColor,
       ),
-      body: _buildBody(),
+      body: StreamBuilder(
+        stream: collection.snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return _buildBody(snapshot);
+          }
+
+          return const Center(child: CircularProgressIndicator());
+        },
+      ),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(AsyncSnapshot snapshot) {
     return SingleChildScrollView(
       padding: spacing16,
       child: Column(
@@ -50,7 +62,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   borderRadius: BorderRadius.circular(100.0),
                 ),
                 child: AutoSizeText(
-                  '+11',
+                  '+${snapshot.data!.docs.length}',
                   style: size12weight700.copyWith(color: orangeColor),
                 ),
               ),
@@ -70,10 +82,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: 5,
+            itemCount: snapshot.data!.docs.length,
             separatorBuilder: (context, index) => const SizedBox12(),
             itemBuilder: (context, index) {
-              return _buildNotificaionItem();
+              final DocumentSnapshot documentSnapshot = snapshot.data!.docs[index];
+              return _buildNotificaionItem(notification: documentSnapshot['content']);
             },
           ),
         ],
@@ -81,7 +94,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     );
   }
 
-  Widget _buildNotificaionItem() {
+  Widget _buildNotificaionItem({String? notification}) {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
@@ -98,7 +111,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
           SizedBox(
             width: context.width / 1.8,
             child: AutoSizeText(
-              'Your yoga session starts in 30 minutes!',
+              notification!,
               style: size16weight700.copyWith(color: brownColor),
             ),
           ),

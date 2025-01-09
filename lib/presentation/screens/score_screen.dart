@@ -112,33 +112,20 @@ class _ScoreScreenState extends State<ScoreScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Center(
-          //   child: Container(
-          //     height: 80.0,
-          //     width: 80.0,
-          //     decoration: const BoxDecoration(
-          //       color: brownColor,
-          //       shape: BoxShape.circle,
-          //       boxShadow: [
-          //         BoxShadow(
-          //           color: Colors.grey,
-          //           offset: Offset(0.0, 1.0),
-          //           blurRadius: 20.0,
-          //         ),
-          //       ],
-          //     ),
-          //     child: const Icon(
-          //       Icons.add,
-          //       color: whiteColor,
-          //     ),
-          //   ),
-          // ),
-          // const SizedBox24(),
-          AutoSizeText(
-            'Mental Score History',
-            style: size18weight700.copyWith(color: brownColor),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              AutoSizeText(
+                'Mental Score History',
+                style: size18weight700.copyWith(color: brownColor),
+              ),
+              IconButton(
+                icon: const Icon(Icons.tune),
+                color: const Color(0xff1F160F).withValues(alpha: 0.32),
+                onPressed: () {},
+              ),
+            ],
           ),
-          const SizedBox12(),
           const ScoreCard(
             day: '20',
             month: 'SEP',
