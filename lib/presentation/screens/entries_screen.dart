@@ -46,7 +46,7 @@ class EntriesScreen extends StatelessWidget {
                     ),
                     AutoSizeText(
                       'Document your Mental Journal.',
-                      style: size18weight500.copyWith(color: const Color(0xff1F160F).withValues(alpha: 64)),
+                      style: size18weight500.copyWith(color: const Color(0xff1F160F).withValues(alpha: 0.64)),
                     ),
                   ],
                 ),

@@ -50,6 +50,7 @@ class TextFieldCustom extends StatefulWidget {
   final bool? isBottomPanel;
   final double borderRadius;
   final bool hasBorder;
+  final Color cursorColor;
 
   const TextFieldCustom({
     super.key,
@@ -98,6 +99,7 @@ class TextFieldCustom extends StatefulWidget {
     this.isBottomPanel = false,
     this.borderRadius = 8.0,
     this.hasBorder = true,
+    this.cursorColor = orangeColor,
     error,
   });
 
@@ -129,8 +131,9 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
                       style: TextStyle(
                         fontSize: widget.labelFontSize,
                         fontWeight: widget.labelFontWeight,
-                        color: showError ? errorColor : null,
+                        color: showError ? errorColor : brownColor,
                         decoration: widget.labelTextDecoration,
+                        fontFamily: 'Urbanist',
                       ),
                       maxLines: widget.labelTextMaxLines,
                       overflow: TextOverflow.ellipsis,
@@ -203,7 +206,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
           keyboardType: widget.keyboardType,
           focusNode: widget.focusNode,
           controller: widget.controller,
-          cursorColor: orangeColor,
+          cursorColor: widget.cursorColor,
           onFieldSubmitted: widget.onFieldSubmitted,
           initialValue: widget.initialValue,
           cursorHeight: 17.0,
@@ -214,8 +217,11 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
           autofillHints: widget.autofillHints,
           maxLines: widget.textFieldMaxLines,
           style: TextStyle(
-            color: showError ? errorColor : null,
-            fontWeight: FontWeight.normal,
+            color: showError ? errorColor : const Color(0xff090E1D).withValues(alpha: 0.64),
+            fontSize: 16.0,
+            fontWeight: FontWeight.w700,
+            letterSpacing: -0.5,
+            fontFamily: 'Urbanist',
           ),
           decoration: InputDecoration(
             hintText: widget.hint,
@@ -225,6 +231,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
               fontSize: widget.placeholderFontSize,
               fontWeight: widget.placeholderFontWeight,
               letterSpacing: widget.hintLetterSpacing,
+              fontFamily: 'Urbanist',
             ),
             suffixIcon: showError
                 ? const Icon(
@@ -238,6 +245,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
               fontSize: 12.0,
               fontWeight: FontWeight.normal,
               color: errorColor,
+              fontFamily: 'Urbanist',
             ),
             // contentPadding: const EdgeInsets.only(left: 10.0, top: 10.0, bottom: 10.0),
             enabled: widget.enabled,
@@ -247,6 +255,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
               fontSize: widget.placeholderFontSize,
               fontWeight: widget.placeholderFontWeight,
               letterSpacing: widget.hintLetterSpacing,
+              fontFamily: 'Urbanist',
             ),
             prefixIcon: widget.prefixIcon,
             suffix: widget.suffixIcon,

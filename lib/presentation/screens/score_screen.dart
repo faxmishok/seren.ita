@@ -84,6 +84,7 @@ class _ScoreScreenState extends State<ScoreScreen> {
                 fontWeight: FontWeight.w800,
                 color: whiteColor,
                 height: 1.0,
+                fontFamily: 'Urbanist',
               ),
             ),
             SizedBox(

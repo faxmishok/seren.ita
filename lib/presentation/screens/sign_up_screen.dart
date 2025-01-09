@@ -31,8 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightBrownColor,
-      appBar: AppBarCustom(
-        title: context.tr('sign_up'),
+      appBar: const AppBarCustom(
         backgroundColor: lightBrownColor,
       ),
       body: BlocProvider(
@@ -62,6 +61,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
           padding: spacing16,
           child: Column(
             children: [
+              Image.asset(
+                'assets/images/logo.png',
+                height: 100.0,
+              ),
+              const SizedBox24(),
+              AutoSizeText(
+                'sign_up'.tr(),
+                style: size28weight800.copyWith(color: brownColor, letterSpacing: -1),
+              ),
+              const SizedBox24(),
               TextFieldCustom(
                 key: const Key('signup_first_name_input'),
                 textInputAction: TextInputAction.next,
@@ -73,6 +82,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
                 labelText: context.tr('first_name'),
                 showInputTitle: true,
+                labelColor: brownColor,
+                labelFontSize: 14.0,
+                labelFontWeight: FontWeight.w800,
+                inputFillColor: whiteColor,
+                borderRadius: 100.0,
+                prefixIcon: const Icon(
+                  Icons.person_2_outlined,
+                  size: 20.0,
+                ),
+                hasBorder: false,
+                cursorColor: greenColor,
               ),
               const SizedBox12(),
               TextFieldCustom(
@@ -86,6 +106,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 labelText: '${context.tr('last_name')} (${context.tr('optional')})',
                 placeholder: context.tr('last_name'),
                 showInputTitle: true,
+                labelColor: brownColor,
+                labelFontSize: 14.0,
+                labelFontWeight: FontWeight.w800,
+                inputFillColor: whiteColor,
+                borderRadius: 100.0,
+                prefixIcon: const Icon(
+                  Icons.person_2_outlined,
+                  size: 20.0,
+                ),
+                hasBorder: false,
+                cursorColor: greenColor,
               ),
               const SizedBox12(),
               TextFieldCustom(
@@ -99,6 +130,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
                 labelText: context.tr('email'),
                 showInputTitle: true,
+                labelColor: brownColor,
+                labelFontSize: 14.0,
+                labelFontWeight: FontWeight.w800,
+                inputFillColor: whiteColor,
+                borderRadius: 100.0,
+                prefixIcon: const Icon(
+                  Icons.email_outlined,
+                  size: 20.0,
+                ),
+                hasBorder: false,
+                cursorColor: greenColor,
               ),
               const SizedBox12(),
               TextFieldCustom(
@@ -112,6 +154,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 onChanged: (value) {
                   _signUpCubit.setPasswordValue(value);
                 },
+                labelColor: brownColor,
+                labelFontSize: 14.0,
+                labelFontWeight: FontWeight.w800,
+                inputFillColor: whiteColor,
+                borderRadius: 100.0,
+                prefixIcon: const Icon(
+                  Icons.password_outlined,
+                  size: 20.0,
+                ),
+                hasBorder: false,
+                cursorColor: greenColor,
               ),
               const SizedBox12(),
               TextFieldCustom(
@@ -128,57 +181,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 onFieldSubmitted: (val) {
                   _signUpCubit.signUp();
                 },
+                labelColor: brownColor,
+                labelFontSize: 14.0,
+                labelFontWeight: FontWeight.w800,
+                inputFillColor: whiteColor,
+                borderRadius: 100.0,
+                prefixIcon: const Icon(
+                  Icons.password_outlined,
+                  size: 20.0,
+                ),
+                hasBorder: false,
+                cursorColor: greenColor,
               ),
-              const SizedBox16(),
+              const SizedBox24(),
               ButtonCustom(
-                title: context.tr('sign_up').toUpperCase(),
+                title: context.tr('sign_up'),
+                borderRadius: 100.0,
+                bgColor: brownColor,
+                fontSize: 18.0,
+                fontWeight: FontWeight.w800,
+                height: 60.0,
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _signUpCubit.signUp();
                   }
                 },
-              ),
-              const SizedBox24(),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 16.0),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            width: 1.0,
-                            color: grey400Color.withValues(alpha: 0.35),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  AutoSizeText(
-                    context.tr('or'),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.bold,
-                      color: grey400Color,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 16.0),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            width: 1.0,
-                            color: grey400Color.withValues(alpha: 0.35),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
               ),
               const SizedBox24(),
               // Row(
@@ -224,7 +251,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     TextSpan(text: '${context.tr('already_have_an_account')} '),
                     TextSpan(
                       text: context.tr('sign_in'),
-                      style: size13weight600.copyWith(color: primaryColor, decoration: TextDecoration.underline),
+                      style: size13weight600.copyWith(color: orangeColor, decoration: TextDecoration.underline),
                       recognizer: TapGestureRecognizer()..onTap = () => context.pushReplacement(const SignInScreen()),
                     ),
                   ],

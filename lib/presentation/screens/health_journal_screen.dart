@@ -98,6 +98,7 @@ class _HealthJournalScreenState extends State<HealthJournalScreen> {
                 fontWeight: FontWeight.w800,
                 color: whiteColor,
                 height: 1.0,
+                fontFamily: 'Urbanist',
               ),
             ),
             const SizedBox24(),

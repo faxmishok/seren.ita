@@ -79,11 +79,15 @@ class _AgeScreenState extends State<AgeScreen> {
               fontSize: 128.0,
               fontWeight: FontWeight.w800,
               color: greenColor,
+              fontFamily: 'Urbanist',
+
             ),
             textStyle: const TextStyle(
               fontSize: 60.0,
               fontWeight: FontWeight.w800,
               color: Color(0xffACA9A5),
+              fontFamily: 'Urbanist',
+
             ),
             onChanged: (value) => setState(() => _currentValue = value),
           ),

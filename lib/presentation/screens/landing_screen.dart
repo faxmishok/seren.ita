@@ -48,7 +48,7 @@ class LandingScreen extends StatelessWidget {
           AutoSizeText(
             'Your mindful mental health AI companion for everyone, anywhere 🍃',
             textAlign: TextAlign.center,
-            style: size18weight500.copyWith(color: brownColor.withValues(alpha: 65)),
+            style: size18weight500.copyWith(color: brownColor.withValues(alpha: 0.65)),
           ),
           const SizedBox24(),
           Stack(

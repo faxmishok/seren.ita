@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/foundation/helpers/classes/validations.dart';
 import 'package:serenita/foundation/services/notification_service.dart';
@@ -32,8 +33,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightBrownColor,
-      appBar: AppBarCustom(
-        title: context.tr('sign_in_to_serenita'),
+      appBar: const AppBarCustom(
         backgroundColor: lightBrownColor,
       ),
       body: BlocProvider(
@@ -62,6 +62,16 @@ class _SignInScreenState extends State<SignInScreen> {
           padding: spacing16,
           child: Column(
             children: [
+              Image.asset(
+                'assets/images/logo.png',
+                height: 100.0,
+              ),
+              const SizedBox24(),
+              AutoSizeText(
+                'sign_in_to_serenita'.tr(),
+                style: size28weight800.copyWith(color: brownColor, letterSpacing: -1),
+              ),
+              const SizedBox24(),
               TextFieldCustom(
                 key: const Key('sigin_email_input'),
                 textInputAction: TextInputAction.next,
@@ -73,6 +83,17 @@ class _SignInScreenState extends State<SignInScreen> {
                 },
                 labelText: context.tr('email'),
                 showInputTitle: true,
+                labelColor: brownColor,
+                labelFontSize: 14.0,
+                labelFontWeight: FontWeight.w800,
+                inputFillColor: whiteColor,
+                borderRadius: 100.0,
+                prefixIcon: const Icon(
+                  Icons.email_outlined,
+                  size: 20.0,
+                ),
+                hasBorder: false,
+                cursorColor: greenColor,
               ),
               const SizedBox12(),
               TextFieldCustom(
@@ -89,89 +110,106 @@ class _SignInScreenState extends State<SignInScreen> {
                 onFieldSubmitted: (val) {
                   _signInCubit.logIn();
                 },
+                labelColor: brownColor,
+                labelFontSize: 14.0,
+                labelFontWeight: FontWeight.w800,
+                inputFillColor: whiteColor,
+                borderRadius: 100.0,
+                prefixIcon: const Icon(
+                  Icons.email_outlined,
+                  size: 20.0,
+                ),
+                hasBorder: false,
+                cursorColor: greenColor,
               ),
-              const SizedBox15(),
+              const SizedBox24(),
               ButtonCustom(
-                title: context.tr('sign_in').toUpperCase(),
+                title: context.tr('sign_in'),
+                borderRadius: 100.0,
+                bgColor: brownColor,
+                fontSize: 18.0,
+                fontWeight: FontWeight.w800,
+                height: 60.0,
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _signInCubit.logIn();
                   }
                 },
               ),
-              const SizedBox24(),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 16.0),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            width: 1.0,
-                            color: grey400Color.withValues(alpha: 0.35),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  AutoSizeText(
-                    context.tr('or'),
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 11.0,
-                      fontWeight: FontWeight.bold,
-                      color: grey400Color,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 16.0),
-                      decoration: BoxDecoration(
-                        border: Border(
-                          bottom: BorderSide(
-                            width: 1.0,
-                            color: grey400Color.withValues(alpha: 0.35),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox24(),
+              const SizedBox50(),
+              _buildSocialField(),
+              const SizedBox50(),
               RichText(
                 text: TextSpan(
-                  style: size13weight400.copyWith(color: grey800Color),
+                  style: size14weight500.copyWith(color: grey800Color),
                   children: [
                     TextSpan(text: '${context.tr('dont_have_an_account')} '),
                     TextSpan(
                       text: context.tr('sign_up'),
-                      style: size13weight600.copyWith(color: primaryColor, decoration: TextDecoration.underline),
+                      style: size13weight600.copyWith(color: orangeColor, decoration: TextDecoration.underline),
                       recognizer: TapGestureRecognizer()..onTap = () => context.pushReplacement(const SignUpScreen()),
                     ),
                   ],
                 ),
               ),
+              const SizedBox6(),
               GestureDetector(
                 onTap: () async {
                   //  context.push(const ForgotPasswordScreen());
                 },
-                child: Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: AutoSizeText(
-                    context.tr('forgot_password'),
-                    textAlign: TextAlign.right,
-                    style: size12weight600.copyWith(color: primaryColor),
-                  ),
+                child: AutoSizeText(
+                  context.tr('forgot_password'),
+                  textAlign: TextAlign.center,
+                  style: size14weight700.copyWith(color: orangeColor),
                 ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildSocialField() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(0xffE8DDD9),
+          ),
+          child: const Icon(
+            FontAwesomeIcons.facebookF,
+            color: Color(0xff926247),
+          ),
+        ),
+        const SizedBox(width: 8.0),
+        Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(0xffE8DDD9),
+          ),
+          child: const Icon(
+            FontAwesomeIcons.google,
+            color: Color(0xff926247),
+          ),
+        ),
+        const SizedBox(width: 8.0),
+        Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            color: Color(0xffE8DDD9),
+          ),
+          child: const Icon(
+            FontAwesomeIcons.instagram,
+            color: Color(0xff926247),
+          ),
+        ),
+      ],
     );
   }
 }
