@@ -1,6 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:boilerplate/supplies/constants/theme_globals.dart';
+import 'package:serenita/supplies/constants/theme_globals.dart';
 
 class ButtonCustom extends StatelessWidget {
   final String? title;

@@ -1,0 +1,15 @@
+{
+    "signin": "Signin",
+    "email": "Email",
+    "password": "Password",
+    "forgot_password": "Forgot Password",
+    "sign_in": "Sign in",
+    "or": "OR",
+    "dont_have_an_account": "Don't have an account?",
+    "sign_up": "Sign up",
+    "signup": "Signup",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "repeat_password": "Repeat Password",
+    "already_have_an_account": "Already have an account?"
+}

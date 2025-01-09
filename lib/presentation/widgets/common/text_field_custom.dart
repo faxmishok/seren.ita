@@ -1,8 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:boilerplate/foundation/helpers/classes/sized_boxes.dart';
-import 'package:boilerplate/supplies/constants/theme_globals.dart';
+import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
+import 'package:serenita/supplies/constants/theme_globals.dart';
 
 class TextFieldCustom extends StatefulWidget {
   final String? labelText;

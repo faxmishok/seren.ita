@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:boilerplate/supplies/constants/app_constants.dart';
+import 'package:serenita/supplies/constants/app_constants.dart';
 
 final appFontTextStyle = TextStyle(fontFamily: appConstants.fontFamily);
 

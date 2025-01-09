@@ -1,12 +1,22 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:boilerplate/app.dart';
-import 'package:boilerplate/foundation/helpers/classes/app_bloc_observer.dart';
+import 'package:serenita/app.dart';
+import 'package:serenita/foundation/helpers/classes/app_bloc_observer.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
 
   Bloc.observer = AppBlocObserver();
 
-  runApp(const App());
+  runApp(EasyLocalization(
+    supportedLocales: const [
+      Locale('en'),
+      Locale('it'),
+    ],
+    path: 'assets/translations',
+    fallbackLocale: const Locale('en'),
+    child: const App(),
+  ));
 }

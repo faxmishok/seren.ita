@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:boilerplate/supplies/constants/theme_globals.dart';
+import 'package:serenita/supplies/constants/theme_globals.dart';
 
 Widget errorWidgetBuilder(FlutterErrorDetails error) {
   return SafeArea(

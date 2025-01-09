@@ -1,9 +1,9 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
-import 'package:boilerplate/foundation/helpers/classes/sized_boxes.dart';
-import 'package:boilerplate/presentation/widgets/common/button_custom.dart';
-import 'package:boilerplate/supplies/constants/theme_globals.dart';
-import 'package:boilerplate/supplies/extensions/build_context_ext.dart';
+import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
+import 'package:serenita/presentation/widgets/common/button_custom.dart';
+import 'package:serenita/supplies/constants/theme_globals.dart';
+import 'package:serenita/supplies/extensions/build_context_ext.dart';
 
 Future<void> showStyledConfirmationDialog({
   required BuildContext? context,

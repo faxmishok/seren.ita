@@ -1,6 +1,6 @@
 {
-  "name": "boilerplate",
-  "short_name": "boilerplate",
+  "name": "serenita",
+  "short_name": "serenita",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#0175C2",
