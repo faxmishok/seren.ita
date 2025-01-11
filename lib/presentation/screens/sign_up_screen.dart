@@ -54,7 +54,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _buildBody() {
     return SingleChildScrollView(
-      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: Form(
         key: _formKey,
         child: Container(
