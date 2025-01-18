@@ -54,6 +54,7 @@ dependencies:
   numberpicker: ^2.1.2
   animated_weight_picker: ^1.0.3
   cloud_firestore: ^5.6.1
+  google_sign_in: ^6.2.2
 
 dev_dependencies:
   flutter_test:

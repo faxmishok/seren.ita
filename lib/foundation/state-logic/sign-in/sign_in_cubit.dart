@@ -48,4 +48,23 @@ class SignInCubit extends Cubit<SignInState> {
       emit(SignInFailure('something_went_wrong'));
     }
   }
+
+  Future<void> logInWithGoogle() async {
+    try {
+      emit(SignInGoogleBusy());
+
+      final result = await _userRelatedRemoteData.signInWithGoogle();
+
+      if (result != null) {
+        _userRelatedLocalData.storeIsLoggedIn(true);
+
+        emit(SignInSuccess());
+      } else {
+        emit(SignInFailure('something_went_wrong'));
+      }
+    } catch (e, s) {
+      logError(e, s);
+      emit(SignInFailure('something_went_wrong'));
+    }
+  }
 }

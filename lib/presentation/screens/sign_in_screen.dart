@@ -123,17 +123,22 @@ class _SignInScreenState extends State<SignInScreen> {
                 cursorColor: greenColor,
               ),
               const SizedBox24(),
-              ButtonCustom(
-                title: context.tr('sign_in'),
-                borderRadius: 100.0,
-                bgColor: brownColor,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w800,
-                height: 60.0,
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _signInCubit.logIn();
-                  }
+              BlocBuilder<SignInCubit, SignInState>(
+                builder: (context, state) {
+                  return ButtonCustom(
+                    title: context.tr('sign_in'),
+                    borderRadius: 100.0,
+                    bgColor: brownColor,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w800,
+                    height: 60.0,
+                    status: state is SignInBusy,
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        _signInCubit.logIn();
+                      }
+                    },
+                  );
                 },
               ),
               const SizedBox50(),
@@ -154,9 +159,7 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
               const SizedBox6(),
               GestureDetector(
-                onTap: () async {
-                  //  context.push(const ForgotPasswordScreen());
-                },
+                onTap: () async {},
                 child: AutoSizeText(
                   context.tr('forgot_password'),
                   textAlign: TextAlign.center,
@@ -174,39 +177,81 @@ class _SignInScreenState extends State<SignInScreen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Container(
+        IconButton(
+          onPressed: () {},
           padding: const EdgeInsets.all(16.0),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xffE8DDD9),
+          style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all<Color>(const Color(0xffE8DDD9)),
           ),
-          child: const Icon(
-            FontAwesomeIcons.facebookF,
-            color: Color(0xff926247),
+          icon: BlocBuilder<SignInCubit, SignInState>(
+            builder: (context, state) {
+              // if (state is SignInGoogleBusy) {
+              //   return const SizedBox(
+              //     height: 24.0,
+              //     width: 24.0,
+              //     child: CircularProgressIndicator(
+              //       color: Color(0xff926247),
+              //     ),
+              //   );
+              // }
+
+              return const Icon(
+                FontAwesomeIcons.facebookF,
+                color: Color(0xff926247),
+              );
+            },
           ),
         ),
         const SizedBox(width: 8.0),
-        Container(
+        IconButton(
+          onPressed: () => _signInCubit.logInWithGoogle(),
           padding: const EdgeInsets.all(16.0),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xffE8DDD9),
+          style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all<Color>(const Color(0xffE8DDD9)),
           ),
-          child: const Icon(
-            FontAwesomeIcons.google,
-            color: Color(0xff926247),
+          icon: BlocBuilder<SignInCubit, SignInState>(
+            builder: (context, state) {
+              if (state is SignInGoogleBusy) {
+                return const SizedBox(
+                  height: 24.0,
+                  width: 24.0,
+                  child: CircularProgressIndicator(
+                    color: Color(0xff926247),
+                  ),
+                );
+              }
+
+              return const Icon(
+                FontAwesomeIcons.google,
+                color: Color(0xff926247),
+              );
+            },
           ),
         ),
         const SizedBox(width: 8.0),
-        Container(
+        IconButton(
+          onPressed: () {},
           padding: const EdgeInsets.all(16.0),
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            color: Color(0xffE8DDD9),
+          style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all<Color>(const Color(0xffE8DDD9)),
           ),
-          child: const Icon(
-            FontAwesomeIcons.instagram,
-            color: Color(0xff926247),
+          icon: BlocBuilder<SignInCubit, SignInState>(
+            builder: (context, state) {
+              // if (state is SignInGoogleBusy) {
+              //   return const SizedBox(
+              //     height: 24.0,
+              //     width: 24.0,
+              //     child: CircularProgressIndicator(
+              //       color: Color(0xff926247),
+              //     ),
+              //   );
+              // }
+
+              return const Icon(
+                FontAwesomeIcons.instagram,
+                color: Color(0xff926247),
+              );
+            },
           ),
         ),
       ],
