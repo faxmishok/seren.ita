@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             backgroundColor: orangeColor,
                             textColor: whiteColor,
                             onTap: () {
-                              context.push(SleepTimeScreen());
+                              context.push(const SleepTimeScreen());
                             },
                           ),
                           const SizedBox(width: 12.0),

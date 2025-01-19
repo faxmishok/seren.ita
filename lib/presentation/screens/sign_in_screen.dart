@@ -178,22 +178,22 @@ class _SignInScreenState extends State<SignInScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         IconButton(
-          onPressed: () {},
+          onPressed: () async => await _signInCubit.logInWithFacebook(),
           padding: const EdgeInsets.all(16.0),
           style: ButtonStyle(
             backgroundColor: WidgetStateProperty.all<Color>(const Color(0xffE8DDD9)),
           ),
           icon: BlocBuilder<SignInCubit, SignInState>(
             builder: (context, state) {
-              // if (state is SignInGoogleBusy) {
-              //   return const SizedBox(
-              //     height: 24.0,
-              //     width: 24.0,
-              //     child: CircularProgressIndicator(
-              //       color: Color(0xff926247),
-              //     ),
-              //   );
-              // }
+              if (state is SignInFacebookBusy) {
+                return const SizedBox(
+                  height: 24.0,
+                  width: 24.0,
+                  child: CircularProgressIndicator(
+                    color: Color(0xff926247),
+                  ),
+                );
+              }
 
               return const Icon(
                 FontAwesomeIcons.facebookF,
@@ -204,7 +204,7 @@ class _SignInScreenState extends State<SignInScreen> {
         ),
         const SizedBox(width: 8.0),
         IconButton(
-          onPressed: () => _signInCubit.logInWithGoogle(),
+          onPressed: () async => await _signInCubit.logInWithGoogle(),
           padding: const EdgeInsets.all(16.0),
           style: ButtonStyle(
             backgroundColor: WidgetStateProperty.all<Color>(const Color(0xffE8DDD9)),

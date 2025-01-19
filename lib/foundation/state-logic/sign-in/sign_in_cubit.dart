@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 import 'package:serenita/foundation/data/local/user_related_local_data.dart';
 import 'package:serenita/foundation/data/remote/user_related_remote_data.dart';
@@ -54,6 +55,25 @@ class SignInCubit extends Cubit<SignInState> {
       emit(SignInGoogleBusy());
 
       final result = await _userRelatedRemoteData.signInWithGoogle();
+
+      if (result != null) {
+        _userRelatedLocalData.storeIsLoggedIn(true);
+
+        emit(SignInSuccess());
+      } else {
+        emit(SignInFailure('something_went_wrong'));
+      }
+    } catch (e, s) {
+      logError(e, s);
+      emit(SignInFailure('something_went_wrong'));
+    }
+  }
+
+  Future<void> logInWithFacebook() async {
+    try {
+      emit(SignInFacebookBusy());
+
+      final result = await _userRelatedRemoteData.signInWithFacebook();
 
       if (result != null) {
         _userRelatedLocalData.storeIsLoggedIn(true);

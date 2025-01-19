@@ -20,7 +20,7 @@ class AllSetScreen extends StatelessWidget {
 
   Widget _buildBody() {
     return Center(
-      child: Container(
+      child: SizedBox(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

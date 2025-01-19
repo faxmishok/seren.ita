@@ -38,6 +38,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             onPressed: () async {
               await getIt<UserRelatedRemoteData>().signOut();
 
+              // ignore: use_build_context_synchronously
               context.pushAndRemoveUntil(StartUpScreen());
             },
           ),

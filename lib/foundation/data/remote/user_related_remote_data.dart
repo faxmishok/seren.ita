@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:serenita/foundation/data/local/user_related_local_data.dart';
 import 'package:serenita/foundation/helpers/functions/locator.dart';
@@ -10,6 +11,7 @@ class UserRelatedRemoteData {
 
   UserRelatedLocalData get _userRelatedLocalData => getIt<UserRelatedLocalData>();
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final FacebookAuth _facebookAuth = FacebookAuth.instance;
 
   Future<User?> signIn(String email, String password) async {
     try {
@@ -38,6 +40,23 @@ class UserRelatedRemoteData {
       );
 
       return result.user;
+    } catch (e) {
+      log('Something went wrong $e');
+    }
+    return null;
+  }
+
+  Future<UserCredential?> signInWithFacebook() async {
+    try {
+      final result = await _facebookAuth.login();
+
+      log('Result: ${result.accessToken?.tokenString}');
+
+      final credential = FacebookAuthProvider.credential('${result.accessToken?.tokenString}');
+
+      log('Credential: $credential');
+
+      return _auth.signInWithCredential(credential);
     } catch (e) {
       log('Something went wrong $e');
     }
@@ -82,6 +101,7 @@ class UserRelatedRemoteData {
     try {
       await _auth.signOut();
       await signOutFromGoogle();
+      await _facebookAuth.logOut();
       await _userRelatedLocalData.storeIsLoggedIn(false);
     } catch (e) {
       log('Something went wrong $e');

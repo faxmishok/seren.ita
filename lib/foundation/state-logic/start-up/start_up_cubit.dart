@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+// ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 import 'package:serenita/foundation/data/local/user_related_local_data.dart';
 import 'package:serenita/foundation/helpers/functions/locator.dart';
