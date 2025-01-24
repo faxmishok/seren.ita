@@ -51,10 +51,13 @@ Future<void> showStyledConfirmationDialog({
                   Flexible(
                     child: ButtonCustom(
                       title: cancelLabel.toString(),
-                      borderColor: primaryColor,
+                      borderColor: errorColor,
                       outline: true,
                       bgColor: context.colorScheme.surface,
-                      textColor: primaryColor,
+                      textColor: errorColor,
+                      borderRadius: 100.0,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w800,
                       onPressed: () => Navigator.of(context).pop(false),
                     ),
                   ),
@@ -62,7 +65,10 @@ Future<void> showStyledConfirmationDialog({
                   Flexible(
                     child: ButtonCustom(
                       title: confirmLabel.toString(),
-                      bgColor: confirmButtonColor ?? primaryColor,
+                      bgColor: confirmButtonColor ?? greenColor,
+                      borderRadius: 100.0,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w800,
                       onPressed: () => Navigator.of(context).pop(true),
                     ),
                   ),

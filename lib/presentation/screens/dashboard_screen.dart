@@ -1,10 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:serenita/foundation/data/remote/user_related_remote_data.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/foundation/helpers/functions/locator.dart';
+import 'package:serenita/foundation/helpers/functions/messenger.dart';
 import 'package:serenita/presentation/screens/health_journal_screen.dart';
 import 'package:serenita/presentation/screens/mood_screen.dart';
 import 'package:serenita/presentation/screens/notifications_screen.dart';
@@ -60,10 +62,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
             height: 40.0,
             bgColor: brownColor,
             onPressed: () async {
-              await getIt<UserRelatedRemoteData>().signOut();
+              showStyledConfirmationDialog(
+                context: context,
+                message: 'Do you want to log out?',
+                cancelLabel: 'No',
+                confirmLabel: 'Yes',
+                onConfirmed: () async {
+                  await getIt<UserRelatedRemoteData>().signOut();
 
-              // ignore: use_build_context_synchronously
-              context.pushAndRemoveUntil(StartUpScreen());
+                  // ignore: use_build_context_synchronously
+                  context.pushAndRemoveUntil(StartUpScreen());
+                },
+              );
             },
           ),
           const SizedBox(width: 12.0),
@@ -111,7 +121,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AutoSizeText(
-                  'Tue, 25 Jan 2025',
+                  'Tue, 06 Feb 2025',
                   style: size12weight700.copyWith(color: grey500Color),
                 ),
                 Container(
@@ -132,8 +142,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             Row(
               children: [
-                const CircleAvatar(
-                  minRadius: 30.0,
+                ClipOval(
+                  child: CachedNetworkImage(
+                    imageUrl: 'https://wallpapers.com/images/hd/minecraft-profile-pictures-1242-x-1235-zix8e1u4kw9zj3cj.jpg',
+                    height: 60.0,
+                    width: 60.0,
+                    placeholder: (context, url) => const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) => const Icon(Icons.error),
+                  ),
                 ),
                 const SizedBox(width: 12.0),
                 Column(
@@ -211,7 +227,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
-
 
   Widget _buildMentalHealthMetrics() {
     return Column(

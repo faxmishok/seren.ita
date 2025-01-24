@@ -61,29 +61,31 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
   }
 
   Widget _buildBody() {
-    return Container(
-      padding: spacing16,
-      child: Column(
-        children: [
-          const SizedBox30(),
-          AutoSizeText(
-            'What’s your health goal for today?',
-            textAlign: TextAlign.center,
-            style: size28weight700.copyWith(color: brownColor),
-          ),
-          const SizedBox50(),
-          _buildOptions(),
-          const SizedBox50(),
-          ButtonCustom(
-            borderRadius: 100.0,
-            bgColor: brownColor,
-            title: 'Continue',
-            fontSize: 18.0,
-            fontWeight: FontWeight.w800,
-            height: 60.0,
-            onPressed: () => context.push(const AgeScreen()),
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Container(
+        padding: spacing16,
+        child: Column(
+          children: [
+            const SizedBox30(),
+            AutoSizeText(
+              'What’s your health goal for today?',
+              textAlign: TextAlign.center,
+              style: size28weight700.copyWith(color: brownColor),
+            ),
+            const SizedBox50(),
+            _buildOptions(),
+            const SizedBox50(),
+            ButtonCustom(
+              borderRadius: 100.0,
+              bgColor: brownColor,
+              title: 'Continue',
+              fontSize: 18.0,
+              fontWeight: FontWeight.w800,
+              height: 60.0,
+              onPressed: () => context.push(const AgeScreen()),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -91,6 +93,7 @@ class _HealthGoalScreenState extends State<HealthGoalScreen> {
   Widget _buildOptions() {
     return ListView.separated(
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       separatorBuilder: (context, index) => const SizedBox12(),
       itemCount: options.length,
       itemBuilder: (context, index) {

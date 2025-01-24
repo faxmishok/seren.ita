@@ -53,54 +53,54 @@ class _AgeScreenState extends State<AgeScreen> {
   }
 
   Widget _buildBody() {
-    return Container(
-      width: context.width,
-      padding: spacing16,
-      child: Column(
-        children: [
-          const SizedBox30(),
-          AutoSizeText(
-            'What’s your age?',
-            textAlign: TextAlign.center,
-            style: size28weight700.copyWith(color: brownColor),
-          ),
-          NumberPicker(
-            value: _currentValue,
-            minValue: 0,
-            maxValue: 100,
-            haptics: true,
-            itemHeight: 180.0,
-            itemWidth: context.width / 1.5,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100.0),
-              border: Border.all(color: const Color(0xffDFE3CF), width: 4.0),
+    return SingleChildScrollView(
+      child: Container(
+        width: context.width,
+        padding: spacing16,
+        child: Column(
+          children: [
+            const SizedBox30(),
+            AutoSizeText(
+              'What’s your age?',
+              textAlign: TextAlign.center,
+              style: size28weight700.copyWith(color: brownColor),
             ),
-            selectedTextStyle: const TextStyle(
-              fontSize: 128.0,
+            NumberPicker(
+              value: _currentValue,
+              minValue: 0,
+              maxValue: 100,
+              haptics: true,
+              itemHeight: 180.0,
+              itemWidth: context.width / 1.5,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100.0),
+                border: Border.all(color: const Color(0xffDFE3CF), width: 4.0),
+              ),
+              selectedTextStyle: const TextStyle(
+                fontSize: 128.0,
+                fontWeight: FontWeight.w800,
+                color: greenColor,
+                fontFamily: 'Urbanist',
+              ),
+              textStyle: const TextStyle(
+                fontSize: 60.0,
+                fontWeight: FontWeight.w800,
+                color: Color(0xffACA9A5),
+                fontFamily: 'Urbanist',
+              ),
+              onChanged: (value) => setState(() => _currentValue = value),
+            ),
+            ButtonCustom(
+              borderRadius: 100.0,
+              bgColor: brownColor,
+              title: 'Continue',
+              fontSize: 18.0,
               fontWeight: FontWeight.w800,
-              color: greenColor,
-              fontFamily: 'Urbanist',
-
+              height: 60.0,
+              onPressed: () => context.push(const WeightScreen()),
             ),
-            textStyle: const TextStyle(
-              fontSize: 60.0,
-              fontWeight: FontWeight.w800,
-              color: Color(0xffACA9A5),
-              fontFamily: 'Urbanist',
-
-            ),
-            onChanged: (value) => setState(() => _currentValue = value),
-          ),
-          ButtonCustom(
-            borderRadius: 100.0,
-            bgColor: brownColor,
-            title: 'Continue',
-            fontSize: 18.0,
-            fontWeight: FontWeight.w800,
-            height: 60.0,
-            onPressed: () => context.push(const WeightScreen()),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

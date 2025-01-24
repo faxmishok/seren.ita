@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -38,6 +39,21 @@ class UserRelatedRemoteData {
         email: email,
         password: password,
       );
+
+      final String userId = result.user!.uid;
+
+      await FirebaseFirestore.instance.collection('Users').doc(userId).set({
+        'user_id': userId,
+        'name': firstName,
+        'surname': lastName,
+        'email': email,
+        'password': password,
+        'date_of_birth': null,
+        'nationality': null,
+        'mood': 'Neutral',
+        'preferences_id': null,
+        'activity_log_id': null,
+      });
 
       return result.user;
     } catch (e) {

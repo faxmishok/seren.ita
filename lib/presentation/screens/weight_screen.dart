@@ -55,43 +55,45 @@ class _WeightScreenState extends State<WeightScreen> {
   }
 
   Widget _buildBody() {
-    return Container(
-      width: context.width,
-      padding: spacing16,
-      child: Column(
-        children: [
-          const SizedBox30(),
-          AutoSizeText(
-            'What’s your weight?',
-            textAlign: TextAlign.center,
-            style: size28weight700.copyWith(color: brownColor),
-          ),
-          const SizedBox150(),
-          AnimatedWeightPicker(
-            min: min,
-            max: max,
-            dialColor: greenColor,
-            dialThickness: 3,
-            selectedValueStyle: size28weight700.copyWith(color: brownColor),
-            suffixTextColor: brownColor,
-            squeeze: 1,
-            onChange: (newValue) {
-              setState(() {
-                selectedValue = newValue;
-              });
-            },
-          ),
-          const SizedBox150(),
-          ButtonCustom(
-            borderRadius: 100.0,
-            bgColor: brownColor,
-            title: 'Continue',
-            fontSize: 18.0,
-            fontWeight: FontWeight.w800,
-            height: 60.0,
-            onPressed: () => context.push(const NotificationsSetup()),
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Container(
+        width: context.width,
+        padding: spacing16,
+        child: Column(
+          children: [
+            const SizedBox30(),
+            AutoSizeText(
+              'What’s your weight?',
+              textAlign: TextAlign.center,
+              style: size28weight700.copyWith(color: brownColor),
+            ),
+            const SizedBox150(),
+            AnimatedWeightPicker(
+              min: min,
+              max: max,
+              dialColor: greenColor,
+              dialThickness: 3,
+              selectedValueStyle: size28weight700.copyWith(color: brownColor),
+              suffixTextColor: brownColor,
+              squeeze: 1,
+              onChange: (newValue) {
+                setState(() {
+                  selectedValue = newValue;
+                });
+              },
+            ),
+            const SizedBox150(),
+            ButtonCustom(
+              borderRadius: 100.0,
+              bgColor: brownColor,
+              title: 'Continue',
+              fontSize: 18.0,
+              fontWeight: FontWeight.w800,
+              height: 60.0,
+              onPressed: () => context.push(const NotificationsSetup()),
+            ),
+          ],
+        ),
       ),
     );
   }

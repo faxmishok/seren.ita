@@ -79,10 +79,11 @@ class EntriesScreen extends StatelessWidget {
 
   Widget _buildAllJournals() {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('journals').snapshots(),
+      stream: FirebaseFirestore.instance.collection('Journals').where(FieldPath.documentId, isNotEqualTo: 'stats').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final journals = snapshot.data!.docs;
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -99,9 +100,11 @@ class EntriesScreen extends StatelessWidget {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: journals.length,
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   separatorBuilder: (context, index) => const SizedBox(width: 8.0),
                   itemBuilder: (context, index) {
                     final journal = journals[index];
+
                     return _buildJournalItem(
                       mood: journal['mood'],
                       title: journal['title'],
@@ -124,10 +127,11 @@ class EntriesScreen extends StatelessWidget {
 
   Widget _buildJournalStats() {
     return StreamBuilder<DocumentSnapshot>(
-      stream: FirebaseFirestore.instance.collection('stats').doc('stats').snapshots(),
+      stream: FirebaseFirestore.instance.collection('Journals').doc('stats').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final stats = snapshot.data!.data() as Map<String, dynamic>;
+
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(

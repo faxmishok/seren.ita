@@ -8,17 +8,13 @@ import 'package:serenita/foundation/helpers/classes/validations.dart';
 import 'package:serenita/foundation/helpers/functions/locator.dart';
 import 'package:serenita/foundation/services/notification_service.dart';
 import 'package:serenita/foundation/state-logic/sign-up/sign_up_cubit.dart';
-import 'package:serenita/presentation/screens/home_screen.dart';
+import 'package:serenita/presentation/screens/health_goal_screen.dart';
 import 'package:serenita/presentation/screens/sign_in_screen.dart';
 import 'package:serenita/presentation/widgets/common/app_bar_custom.dart';
 import 'package:serenita/presentation/widgets/common/button_custom.dart';
 import 'package:serenita/presentation/widgets/common/text_field_custom.dart';
 import 'package:serenita/supplies/constants/theme_globals.dart';
 import 'package:serenita/supplies/extensions/build_context_ext.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -43,7 +39,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         child: BlocListener<SignUpCubit, SignUpState>(
           listener: (context, state) {
             if (state is SignUpSuccess) {
-              context.pushAndRemoveUntil(const HomeScreen());
+              context.pushAndRemoveUntil(const HealthGoalScreen());
             }
 
             if (state is SignUpFailure) {
@@ -197,78 +193,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 cursorColor: greenColor,
               ),
               const SizedBox24(),
-              ButtonCustom(
-                title: context.tr('sign_up'),
-                borderRadius: 100.0,
-                bgColor: brownColor,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w800,
-                height: 60.0,
-                onPressed: () async {
-                  if (_formKey.currentState!.validate()) {
-                    try {
-                      final UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                        email: _signUpCubit.emailFieldValue,
-                        password: _signUpCubit.passwordFieldValue,
-                      );
-                      final String userId = userCredential.user!.uid;
-                      await FirebaseFirestore.instance.collection('Users').doc(userId).set({
-                        'user_id': userId,
-                        'name': _signUpCubit.firstNameFieldValue,
-                        'surname': _signUpCubit.lastNameFieldValue ?? '',
-                        'email': _signUpCubit.emailFieldValue,
-                        'password': _signUpCubit.passwordFieldValue,
-                        'date_of_birth': null,
-                        'nationality': null,
-                        'mood': 'Neutral',
-                        'preferences_id': null,
-                        'activity_log_id': null,
-                      });
-                      context.pushAndRemoveUntil(const HomeScreen());
-                    } catch (e) {
-                      getIt<NotificationService>().notify(e.toString());
-                    }
-                  }
+              BlocBuilder<SignUpCubit, SignUpState>(
+                builder: (context, state) {
+                  return ButtonCustom(
+                    title: context.tr('sign_up'),
+                    borderRadius: 100.0,
+                    bgColor: brownColor,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w800,
+                    height: 60.0,
+                    status: state is SignUpBusy,
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        _signUpCubit.signUp();
+                      }
+                    },
+                  );
                 },
               ),
-
               const SizedBox24(),
-              // Row(
-              //   children: [
-              //     Expanded(
-              //       child: BlocBuilder<RegistrationCubit, RegistrationState>(
-              //         builder: (context, state) {
-              //           return ButtonSocial(
-              //             onPressed: () async => await _registrationCubit.signUpWithGoogle(),
-              //             icon: FontAwesomeIcons.google,
-              //             iconColor: whiteColor,
-              //             bgColor: whiteColor,
-              //             textColor: primaryColor,
-              //             status: state is RegistrationGoogleBusy,
-              //             imageIcon: Image.asset(
-              //               AssetImages.googleIcon,
-              //               height: 28.0,
-              //             ),
-              //             outline: true,
-              //           );
-              //         },
-              //       ),
-              //     ),
-              //     if (Platform.isIOS) ...[
-              //       const SizedBox(width: 12.0),
-              //       Expanded(
-              //         child: ButtonSocial(
-              //           onPressed: () async => await _registrationCubit.signUpWithApple(),
-              //           icon: FontAwesomeIcons.apple,
-              //           iconColor: whiteColor,
-              //           bgColor: appleColor,
-              //           textColor: whiteColor,
-              //         ),
-              //       ),
-              //     ],
-              //   ],
-              // ),
-              // const SizedBox24(),
               RichText(
                 text: TextSpan(
                   style: size13weight400.copyWith(color: grey800Color),

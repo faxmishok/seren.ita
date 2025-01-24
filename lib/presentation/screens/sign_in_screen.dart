@@ -8,7 +8,7 @@ import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/foundation/helpers/classes/validations.dart';
 import 'package:serenita/foundation/services/notification_service.dart';
 import 'package:serenita/foundation/state-logic/sign-in/sign_in_cubit.dart';
-import 'package:serenita/presentation/screens/health_goal_screen.dart';
+import 'package:serenita/presentation/screens/home_screen.dart';
 import 'package:serenita/presentation/screens/sign_up_screen.dart';
 import 'package:serenita/presentation/widgets/common/app_bar_custom.dart';
 import 'package:serenita/presentation/widgets/common/button_custom.dart';
@@ -41,7 +41,7 @@ class _SignInScreenState extends State<SignInScreen> {
         child: BlocListener<SignInCubit, SignInState>(
           listener: (context, state) {
             if (state is SignInSuccess) {
-              context.pushAndRemoveUntil(const HealthGoalScreen());
+              context.pushAndRemoveUntil(const HomeScreen());
             }
 
             if (state is SignInFailure) {
