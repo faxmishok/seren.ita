@@ -16,6 +16,10 @@ import 'package:serenita/presentation/widgets/common/text_field_custom.dart';
 import 'package:serenita/supplies/constants/theme_globals.dart';
 import 'package:serenita/supplies/extensions/build_context_ext.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -200,12 +204,34 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 fontSize: 18.0,
                 fontWeight: FontWeight.w800,
                 height: 60.0,
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    _signUpCubit.signUp();
+                    try {
+                      final UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                        email: _signUpCubit.emailFieldValue,
+                        password: _signUpCubit.passwordFieldValue,
+                      );
+                      final String userId = userCredential.user!.uid;
+                      await FirebaseFirestore.instance.collection('Users').doc(userId).set({
+                        'user_id': userId,
+                        'name': _signUpCubit.firstNameFieldValue,
+                        'surname': _signUpCubit.lastNameFieldValue ?? '',
+                        'email': _signUpCubit.emailFieldValue,
+                        'password': _signUpCubit.passwordFieldValue,
+                        'date_of_birth': null,
+                        'nationality': null,
+                        'mood': 'Neutral',
+                        'preferences_id': null,
+                        'activity_log_id': null,
+                      });
+                      context.pushAndRemoveUntil(const HomeScreen());
+                    } catch (e) {
+                      getIt<NotificationService>().notify(e.toString());
+                    }
                   }
                 },
               ),
+
               const SizedBox24(),
               // Row(
               //   children: [

@@ -15,6 +15,9 @@ import 'package:serenita/presentation/widgets/common/button_custom.dart';
 import 'package:serenita/supplies/constants/theme_globals.dart';
 import 'package:serenita/supplies/extensions/build_context_ext.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart'; // to ensure successful data fetch from firestore
+import 'package:firebase_auth/firebase_auth.dart';
+
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
 
@@ -23,6 +26,27 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  final CollectionReference usersCollection = FirebaseFirestore.instance.collection('Users');
+  final String? userId = FirebaseAuth.instance.currentUser?.uid;
+  Map<String, dynamic>? userData;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    if (userId != null) {
+      final userSnapshot = await usersCollection.doc(userId).get();
+      if (userSnapshot.exists) {
+        setState(() {
+          userData = userSnapshot.data() as Map<String, dynamic>;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,6 +87,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildProfileSection() {
+    final currentMood = userData?['currentMood'] ?? 'Happy';
+    final userName = userData?['name'] ?? 'User';
+
     return Material(
       elevation: 4.0,
       borderRadius: const BorderRadius.only(
@@ -91,9 +118,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   decoration: BoxDecoration(
                     color: whiteColor,
                     shape: BoxShape.circle,
-                    border: Border.all(
-                      color: brownColor,
-                    ),
+                    border: Border.all(color: brownColor),
                   ),
                   child: IconButton(
                     onPressed: () => context.push(const NotificationsScreen()),
@@ -115,7 +140,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AutoSizeText(
-                      'Hi, Fahmin!',
+                      'Hi, $userName!',
                       style: size28weight700.copyWith(color: brownColor),
                     ),
                     Row(
@@ -169,7 +194,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               ),
                               const SizedBox(width: 6.0),
                               AutoSizeText(
-                                'Happy',
+                                currentMood,
                                 style: size12weight600.copyWith(color: brownColor),
                               ),
                             ],
@@ -186,6 +211,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
     );
   }
+
 
   Widget _buildMentalHealthMetrics() {
     return Column(
