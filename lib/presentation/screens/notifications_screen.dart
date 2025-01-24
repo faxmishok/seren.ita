@@ -5,6 +5,7 @@ import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/presentation/widgets/common/app_bar_custom.dart';
 import 'package:serenita/supplies/constants/theme_globals.dart';
 import 'package:serenita/supplies/extensions/build_context_ext.dart';
+import 'package:intl/intl.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -86,15 +87,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             separatorBuilder: (context, index) => const SizedBox12(),
             itemBuilder: (context, index) {
               final DocumentSnapshot documentSnapshot = snapshot.data!.docs[index];
-              return _buildNotificaionItem(notification: documentSnapshot['content']);
+              return _buildNotificationItem(
+                notification: documentSnapshot['content'],
+                type: documentSnapshot['type'],
+                scheduledTime: documentSnapshot['scheduled_time'],
+                status: documentSnapshot['status'],
+              );
             },
+
           ),
         ],
       ),
     );
   }
 
-  Widget _buildNotificaionItem({String? notification}) {
+  Widget _buildNotificationItem({required String notification, required String type, required Timestamp scheduledTime, required String status}) {
     return Container(
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
@@ -108,11 +115,30 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             height: 80.0,
           ),
           const SizedBox(width: 12.0),
-          SizedBox(
-            width: context.width / 1.8,
-            child: AutoSizeText(
-              notification!,
-              style: size16weight700.copyWith(color: brownColor),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AutoSizeText(
+                  notification,
+                  style: size16weight700.copyWith(color: brownColor),
+                ),
+                const SizedBox(height: 6.0),
+                AutoSizeText(
+                  'Type: $type',
+                  style: size12weight500.copyWith(color: grey500Color),
+                ),
+                const SizedBox(height: 4.0),
+                AutoSizeText(
+                  'Scheduled: ${DateFormat('dd MMM yyyy, hh:mm a').format(scheduledTime.toDate())}',
+                  style: size12weight500.copyWith(color: grey500Color),
+                ),
+                const SizedBox(height: 4.0),
+                AutoSizeText(
+                  'Status: $status',
+                  style: size12weight500.copyWith(color: status == 'active' ? greenColor : orangeColor),
+                ),
+              ],
             ),
           ),
         ],
