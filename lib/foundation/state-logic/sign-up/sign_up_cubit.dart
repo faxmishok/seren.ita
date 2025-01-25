@@ -15,21 +15,11 @@ class SignUpCubit extends Cubit<SignUpState> {
   UserRelatedRemoteData get _userRelatedRemoteData => getIt<UserRelatedRemoteData>();
 
   String emailFieldValue = '';
-  String firstNameFieldValue = '';
-  String lastNameFieldValue = '';
   String passwordFieldValue = '';
   String confirmPasswordFieldValue = '';
 
   void setEmailValue(String value) {
     emailFieldValue = value;
-  }
-
-  void setFirstNameValue(String value) {
-    firstNameFieldValue = value;
-  }
-
-  void setLastNameValue(String value) {
-    lastNameFieldValue = value;
   }
 
   void setPasswordValue(String value) {
@@ -44,14 +34,10 @@ class SignUpCubit extends Cubit<SignUpState> {
     try {
       emit(SignUpBusy());
 
-      final firstName = firstNameFieldValue;
-      final lastName = lastNameFieldValue;
       final email = emailFieldValue;
       final password = passwordFieldValue;
 
       final result = await _userRelatedRemoteData.signUp(
-        firstName,
-        lastName,
         email,
         password,
       );

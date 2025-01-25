@@ -7,14 +7,14 @@ import 'package:serenita/presentation/widgets/common/button_custom.dart';
 import 'package:serenita/supplies/constants/theme_globals.dart';
 import 'package:serenita/supplies/extensions/build_context_ext.dart';
 
-class NotificationsSetup extends StatefulWidget {
-  const NotificationsSetup({super.key});
+class NotificationsSetupScreen extends StatefulWidget {
+  const NotificationsSetupScreen({super.key});
 
   @override
-  State<NotificationsSetup> createState() => _NotificationsSetupState();
+  State<NotificationsSetupScreen> createState() => _NotificationsSetupScreenState();
 }
 
-class _NotificationsSetupState extends State<NotificationsSetup> {
+class _NotificationsSetupScreenState extends State<NotificationsSetupScreen> {
   bool _value1 = false;
   bool _value2 = false;
   bool _value3 = false;

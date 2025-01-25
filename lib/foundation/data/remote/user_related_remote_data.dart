@@ -29,8 +29,6 @@ class UserRelatedRemoteData {
   }
 
   Future<User?> signUp(
-    String firstName,
-    String lastName,
     String email,
     String password,
   ) async {
@@ -42,10 +40,12 @@ class UserRelatedRemoteData {
 
       final String userId = result.user!.uid;
 
+      await _userRelatedLocalData.storeUserId(userId);
+
       await FirebaseFirestore.instance.collection('Users').doc(userId).set({
         'user_id': userId,
-        'name': firstName,
-        'surname': lastName,
+        'name': null,
+        'surname': null,
         'email': email,
         'password': password,
         'date_of_birth': null,
@@ -137,7 +137,21 @@ class UserRelatedRemoteData {
     return null;
   }
 
+  Future<void> setProfileDetails(
+    String firstName,
+    String lastName,
+  ) async {
+    try {
+      final userId = _userRelatedLocalData.userId;
 
+      await FirebaseFirestore.instance.collection('Users').doc(userId).update({
+        'name': firstName,
+        'surname': lastName,
+      });
+    } catch (e) {
+      log('Something went wrong $e');
+    }
+  }
 
   Future<bool> isSignedIn() async {
     return await _googleSignIn.isSignedIn();
@@ -164,6 +178,7 @@ class UserRelatedRemoteData {
       await signOutFromGoogle();
       await _facebookAuth.logOut();
       await _userRelatedLocalData.storeIsLoggedIn(false);
+      await _userRelatedLocalData.storeUserId('');
     } catch (e) {
       log('Something went wrong $e');
     }

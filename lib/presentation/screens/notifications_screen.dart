@@ -5,6 +5,7 @@ import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/presentation/widgets/common/app_bar_custom.dart';
 import 'package:serenita/supplies/constants/theme_globals.dart';
 import 'package:serenita/supplies/extensions/build_context_ext.dart';
+// ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 
 class NotificationsScreen extends StatefulWidget {

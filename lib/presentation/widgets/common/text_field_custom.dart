@@ -172,155 +172,166 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
             ],
           ),
         ),
-        TextFormField(
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          inputFormatters: widget.inputFormatters,
-          onSaved: widget.onSaved,
-          textInputAction: widget.textInputAction,
-          validator: (value) {
-            String? errorMessage = widget.validator != null ? widget.validator!(value) : null;
-
-            if (errorMessage != null) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                if (mounted) {
-                  setState(() {
-                    showError = true;
-                  });
-                }
-              });
-            } else {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                if (mounted) {
-                  setState(() {
-                    showError = false;
-                  });
-                }
-              });
-            }
-
-            return errorMessage;
-          },
-          obscureText: widget.obscureText,
-          enabled: widget.enabled,
-          onChanged: widget.onChanged,
-          keyboardType: widget.keyboardType,
-          focusNode: widget.focusNode,
-          controller: widget.controller,
-          cursorColor: widget.cursorColor,
-          onFieldSubmitted: widget.onFieldSubmitted,
-          initialValue: widget.initialValue,
-          cursorHeight: 17.0,
-          onTap: () {
-            Scrollable.ensureVisible(context, alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd);
-            widget.onTap?.call();
-          },
-          autofillHints: widget.autofillHints,
-          maxLines: widget.textFieldMaxLines,
-          style: TextStyle(
-            color: showError ? errorColor : const Color(0xff090E1D).withValues(alpha: 0.64),
-            fontSize: 16.0,
-            fontWeight: FontWeight.w700,
-            letterSpacing: -0.5,
-            fontFamily: 'Urbanist',
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withValues(alpha: 0.1),
+                blurRadius: 5,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
-          decoration: InputDecoration(
-            hintText: widget.hint,
-            alignLabelWithHint: widget.alignLabelWithHint,
-            hintStyle: TextStyle(
-              color: widget.placeholderColor,
-              fontSize: widget.placeholderFontSize,
-              fontWeight: widget.placeholderFontWeight,
-              letterSpacing: widget.hintLetterSpacing,
-              fontFamily: 'Urbanist',
-            ),
-            suffixIcon: showError
-                ? const Icon(
-                    Icons.error_outline_rounded,
-                    color: errorColor,
-                    size: 20.0,
-                  )
-                : null,
-            errorMaxLines: 3,
-            errorStyle: const TextStyle(
-              fontSize: 12.0,
-              fontWeight: FontWeight.normal,
-              color: errorColor,
-              fontFamily: 'Urbanist',
-            ),
-            // contentPadding: const EdgeInsets.only(left: 10.0, top: 10.0, bottom: 10.0),
+          child: TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            inputFormatters: widget.inputFormatters,
+            onSaved: widget.onSaved,
+            textInputAction: widget.textInputAction,
+            validator: (value) {
+              String? errorMessage = widget.validator != null ? widget.validator!(value) : null;
+
+              if (errorMessage != null) {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (mounted) {
+                    setState(() {
+                      showError = true;
+                    });
+                  }
+                });
+              } else {
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  if (mounted) {
+                    setState(() {
+                      showError = false;
+                    });
+                  }
+                });
+              }
+
+              return errorMessage;
+            },
+            obscureText: widget.obscureText,
             enabled: widget.enabled,
-            labelText: widget.placeholder ?? widget.labelText,
-            labelStyle: TextStyle(
-              color: showError ? errorColor : widget.placeholderColor,
-              fontSize: widget.placeholderFontSize,
-              fontWeight: widget.placeholderFontWeight,
-              letterSpacing: widget.hintLetterSpacing,
+            onChanged: widget.onChanged,
+            keyboardType: widget.keyboardType,
+            focusNode: widget.focusNode,
+            controller: widget.controller,
+            cursorColor: widget.cursorColor,
+            onFieldSubmitted: widget.onFieldSubmitted,
+            initialValue: widget.initialValue,
+            cursorHeight: 17.0,
+            onTap: () {
+              Scrollable.ensureVisible(context, alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd);
+              widget.onTap?.call();
+            },
+            autofillHints: widget.autofillHints,
+            maxLines: widget.textFieldMaxLines,
+            style: TextStyle(
+              color: showError ? errorColor : const Color(0xff090E1D).withValues(alpha: 0.64),
+              fontSize: 16.0,
+              fontWeight: FontWeight.w700,
+              letterSpacing: -0.5,
               fontFamily: 'Urbanist',
             ),
-            prefixIcon: widget.prefixIcon,
-            suffix: widget.suffixIcon,
-            floatingLabelBehavior: widget.floatingLabelBehavior,
-            fillColor: widget.inputFillColor,
-            filled: true,
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(widget.borderRadius),
+            decoration: InputDecoration(
+              hintText: widget.hint,
+              alignLabelWithHint: widget.alignLabelWithHint,
+              hintStyle: TextStyle(
+                color: widget.placeholderColor,
+                fontSize: widget.placeholderFontSize,
+                fontWeight: widget.placeholderFontWeight,
+                letterSpacing: widget.hintLetterSpacing,
+                fontFamily: 'Urbanist',
               ),
-              borderSide: BorderSide(
-                color: brownColor,
-                width: widget.textFieldBorderWidth,
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(widget.borderRadius),
-              ),
-              borderSide: widget.hasBorder
-                  ? BorderSide(
-                      color: widget.borderColor,
-                      width: 1,
+              suffixIcon: showError
+                  ? const Icon(
+                      Icons.error_outline_rounded,
+                      color: errorColor,
+                      size: 20.0,
                     )
-                  : BorderSide.none,
-            ),
-            disabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(widget.borderRadius),
-              ),
-              borderSide: widget.hasBorder
-                  ? const BorderSide(
-                      color: grey400Color,
-                      width: 0.5,
-                    )
-                  : BorderSide.none,
-            ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(widget.borderRadius),
-              ),
-              borderSide: const BorderSide(
+                  : null,
+              errorMaxLines: 3,
+              errorStyle: const TextStyle(
+                fontSize: 12.0,
+                fontWeight: FontWeight.normal,
                 color: errorColor,
-                width: 0.5,
+                fontFamily: 'Urbanist',
               ),
+              enabled: widget.enabled,
+              labelText: widget.placeholder ?? widget.labelText,
+              labelStyle: TextStyle(
+                color: showError ? errorColor : widget.placeholderColor,
+                fontSize: widget.placeholderFontSize,
+                fontWeight: widget.placeholderFontWeight,
+                letterSpacing: widget.hintLetterSpacing,
+                fontFamily: 'Urbanist',
+              ),
+              prefixIcon: widget.prefixIcon,
+              suffix: widget.suffixIcon,
+              floatingLabelBehavior: widget.floatingLabelBehavior,
+              fillColor: widget.inputFillColor,
+              filled: true,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(widget.borderRadius),
+                ),
+                borderSide: BorderSide(
+                  color: brownColor,
+                  width: widget.textFieldBorderWidth,
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(widget.borderRadius),
+                ),
+                borderSide: widget.hasBorder
+                    ? BorderSide(
+                        color: widget.borderColor,
+                        width: 1,
+                      )
+                    : BorderSide.none,
+              ),
+              disabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(widget.borderRadius),
+                ),
+                borderSide: widget.hasBorder
+                    ? const BorderSide(
+                        color: grey400Color,
+                        width: 0.5,
+                      )
+                    : BorderSide.none,
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(widget.borderRadius),
+                ),
+                borderSide: const BorderSide(
+                  color: errorColor,
+                  width: 0.5,
+                ),
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(widget.borderRadius),
+                ),
+                borderSide: const BorderSide(
+                  color: errorColor,
+                  width: 0.5,
+                ),
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(widget.borderRadius),
+                ),
+                borderSide: const BorderSide(
+                  style: BorderStyle.solid,
+                  width: 0.5,
+                ),
+              ),
+              focusColor: orangeColor,
             ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(widget.borderRadius),
-              ),
-              borderSide: const BorderSide(
-                color: errorColor,
-                width: 0.5,
-              ),
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(widget.borderRadius),
-              ),
-              borderSide: const BorderSide(
-                style: BorderStyle.solid,
-                width: 0.5,
-              ),
-            ),
-            focusColor: orangeColor,
           ),
         ),
       ],

@@ -43,9 +43,11 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
       });
 
       // Navigate to Entries Screen on success
+      // ignore: use_build_context_synchronously
       context.push(const EntriesScreen());
     } catch (e) {
       // Show an error message if something goes wrong
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error creating journal: $e')),
       );

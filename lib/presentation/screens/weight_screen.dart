@@ -2,7 +2,7 @@ import 'package:animated_weight_picker/animated_weight_picker.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
-import 'package:serenita/presentation/screens/notifications_setup.dart';
+import 'package:serenita/presentation/screens/profile_setup_screen.dart';
 import 'package:serenita/presentation/widgets/common/app_bar_custom.dart';
 import 'package:serenita/presentation/widgets/common/button_custom.dart';
 import 'package:serenita/supplies/constants/theme_globals.dart';
@@ -90,7 +90,7 @@ class _WeightScreenState extends State<WeightScreen> {
               fontSize: 18.0,
               fontWeight: FontWeight.w800,
               height: 60.0,
-              onPressed: () => context.push(const NotificationsSetup()),
+              onPressed: () => context.push(const ProfileSetupScreen()),
             ),
           ],
         ),
