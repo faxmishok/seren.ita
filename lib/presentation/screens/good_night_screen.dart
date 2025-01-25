@@ -1,12 +1,39 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/presentation/screens/home_screen.dart';
 import 'package:serenita/supplies/constants/theme_globals.dart';
 import 'package:serenita/supplies/extensions/build_context_ext.dart';
 
-class GoodNightScreen extends StatelessWidget {
+class GoodNightScreen extends StatefulWidget {
   const GoodNightScreen({super.key});
+
+  @override
+  State<GoodNightScreen> createState() => _GoodNightScreenState();
+}
+
+class _GoodNightScreenState extends State<GoodNightScreen> {
+  String? userName;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserName();
+  }
+
+  Future<void> _fetchUserName() async {
+    final String? userId = FirebaseAuth.instance.currentUser?.uid;
+    if (userId != null) {
+      final userSnapshot = await FirebaseFirestore.instance.collection('Users').doc(userId).get();
+      if (userSnapshot.exists) {
+        setState(() {
+          userName = userSnapshot['name'] ?? 'User'; // Fallback to 'User' if name is null
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +71,7 @@ class GoodNightScreen extends StatelessWidget {
               ),
               const SizedBox24(),
               AutoSizeText(
-                'Good Night, Fahmin!',
+                'Good Night, ${userName ?? 'User'}!',
                 style: size24weight800.copyWith(color: whiteColor),
               ),
               const SizedBox12(),

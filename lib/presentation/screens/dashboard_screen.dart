@@ -97,7 +97,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildProfileSection() {
-    final currentMood = userData?['currentMood'] ?? 'Happy';
+    final currentMood = userData?['mood'] ?? 'Happy';
     final userName = userData?['name'] ?? 'User';
 
     return Material(
@@ -300,7 +300,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               style: size24weight700.copyWith(color: whiteColor),
                             ),
                             AutoSizeText(
-                              'Healty',
+                              'Healthy',
                               style: size14weight600.copyWith(color: lighterGreenColor),
                             ),
                           ],
@@ -389,7 +389,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         ],
                       ),
                       AutoSizeText(
-                        '31/365',
+                        '34/365',
                         style: size24weight700.copyWith(color: whiteColor),
                       ),
                       const SizedBox24(),

@@ -81,18 +81,63 @@ class UserRelatedRemoteData {
 
   Future<UserCredential?> signInWithGoogle() async {
     try {
+      // Initiate Google Sign-In
       final user = await _googleSignIn.signIn();
 
+      // Get authentication details
       final auth = await user?.authentication;
 
-      final credential = GoogleAuthProvider.credential(idToken: auth?.idToken, accessToken: auth?.accessToken);
+      // Create Google credential
+      final credential = GoogleAuthProvider.credential(
+        idToken: auth?.idToken,
+        accessToken: auth?.accessToken,
+      );
 
-      return await _auth.signInWithCredential(credential);
+      // Sign in to Firebase with Google credentials
+      final userCredential = await _auth.signInWithCredential(credential);
+
+      // Fetch the signed-in user's ID and email
+      final String userId = userCredential.user?.uid ?? '';
+      final String? email = userCredential.user?.email;
+
+      // Check if user already exists in Firestore
+      final userDoc = FirebaseFirestore.instance.collection('Users').doc(userId);
+      final docSnapshot = await userDoc.get();
+
+      if (!docSnapshot.exists) {
+        // Safely handle the displayName split logic
+        final displayName = user?.displayName ?? 'Default User';
+        final nameParts = displayName.split(' ');
+        final firstName = nameParts.isNotEmpty ? nameParts.first : 'First Name';
+        final lastName = (nameParts.length > 1) ? nameParts.sublist(1).join(' ') : 'Last Name';
+
+        // If the user doesn't exist, add them to Firestore
+        await userDoc.set({
+          'user_id': userId,
+          'name': firstName,
+          'surname': lastName,
+          'email': email,
+          'password': null, // Password is not available with Google sign-in
+          'date_of_birth': null,
+          'nationality': null,
+          'mood': 'Neutral',
+          'preferences_id': null,
+          'activity_log_id': null,
+        });
+
+        log('New user registered in Firestore: $userId');
+      } else {
+        log('User already exists in Firestore: $userId');
+      }
+
+      return userCredential;
     } catch (e) {
-      log('Something went wrong $e');
+      log('Something went wrong during Google sign-in: $e');
     }
     return null;
   }
+
+
 
   Future<bool> isSignedIn() async {
     return await _googleSignIn.isSignedIn();
