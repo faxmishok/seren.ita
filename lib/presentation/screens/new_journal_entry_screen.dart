@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cloud_firestore/cloud_firestore.dart'; // Add this import for Firestore
 import 'package:flutter/material.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/presentation/screens/entries_screen.dart';
@@ -16,6 +17,41 @@ class NewJournalEntryScreen extends StatefulWidget {
 }
 
 class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
+  // Add controllers to capture text inputs
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  // Function to write data to Firestore
+  Future<void> _createJournalEntry() async {
+    if (_titleController.text.isEmpty || _descriptionController.text.isEmpty) {
+      // Show an error message if fields are empty
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
+    }
+
+    try {
+      // Write to Firestore with default values for mood, iconPath, and createdAt
+      await FirebaseFirestore.instance.collection('Journals').add({
+        'title': _titleController.text,
+        'description': _descriptionController.text,
+        'mood': 'ANGRY', // Default mood
+        'iconPath': 'assets/images/sad.png', // Default icon path
+        'color': '#FF5722', // Default color
+        'createdAt': FieldValue.serverTimestamp(), // Current timestamp
+      });
+
+      // Navigate to Entries Screen on success
+      context.push(const EntriesScreen());
+    } catch (e) {
+      // Show an error message if something goes wrong
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error creating journal: $e')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,9 +78,10 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox12(),
-          const Padding(
+          Padding(
             padding: spacing16,
             child: TextFieldCustom(
+              controller: _titleController, // Attach the controller
               labelText: 'Journal Title',
               labelColor: brownColor,
               labelFontSize: 14.0,
@@ -52,7 +89,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
               showInputTitle: true,
               inputFillColor: whiteColor,
               borderRadius: 100.0,
-              prefixIcon: Icon(
+              prefixIcon: const Icon(
                 Icons.description_outlined,
                 size: 20.0,
               ),
@@ -63,7 +100,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
           const SizedBox24(),
           _buildEmotionsField(),
           const SizedBox24(),
-          _buildEntryField(),
+          _buildEntryField(), // Now included in the corrected version
           const SizedBox24(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -78,7 +115,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
               iconColor: whiteColor,
               iconSize: 25.0,
               showLeftIcon: true,
-              onPressed: () => context.push(const EntriesScreen()),
+              onPressed: _createJournalEntry, // Call the function to write data
             ),
           ),
         ],
@@ -104,9 +141,10 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
   }
 
   Widget _buildEntryField() {
-    return const Padding(
+    return Padding(
       padding: spacing16,
       child: TextFieldCustom(
+        controller: _descriptionController, // Attach the controller
         labelText: 'Write your entry',
         placeholder: '',
         labelColor: brownColor,
