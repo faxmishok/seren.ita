@@ -12,9 +12,6 @@ class UserRelatedLocalData {
   bool get isLoggedIn => _get('is_logged_in', defaultValue: false);
   Future<void> storeIsLoggedIn(bool value) => _store('is_logged_in', value);
 
-  String get userId => _get('user_id', defaultValue: '');
-  Future<void> storeUserId(String value) => _store('user_id', value);
-
   bool get seenEnablePushNotifications => _get('seen_enable_push_notifications', defaultValue: false);
   Future<void> storeSeenEnablePushNotifications(bool value) => _store('seen_enable_push_notifications', value);
   Future<void> markSeenEnabledPushnotificationsTrue() => storeSeenEnablePushNotifications(true);

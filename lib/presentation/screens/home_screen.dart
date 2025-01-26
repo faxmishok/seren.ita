@@ -1,8 +1,10 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/presentation/screens/dashboard_screen.dart';
+import 'package:serenita/presentation/screens/profile_screen.dart';
 import 'package:serenita/presentation/screens/sleep_time_screen.dart';
 import 'package:serenita/presentation/widgets/common/button_custom.dart';
 import 'package:serenita/supplies/constants/theme_globals.dart';
@@ -22,8 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     const DashboardScreen(),
     const DashboardScreen(),
     const DashboardScreen(),
-    const DashboardScreen(),
-    const DashboardScreen(),
+    const ProfileScreen(),
   ];
 
   @override
@@ -160,17 +161,17 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         },
         child: const Icon(
-          Icons.add,
+          FontAwesomeIcons.plus,
           color: whiteColor,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar(
         icons: const [
-          Icons.home_outlined,
-          Icons.chat_outlined,
-          Icons.bar_chart_outlined,
-          Icons.person_outline,
+          FontAwesomeIcons.house,
+          FontAwesomeIcons.message,
+          FontAwesomeIcons.chartSimple,
+          FontAwesomeIcons.user,
         ],
         activeIndex: currentPageIndex,
         gapLocation: GapLocation.center,

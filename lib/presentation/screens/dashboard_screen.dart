@@ -1,24 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:serenita/foundation/data/remote/user_related_remote_data.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/foundation/helpers/functions/locator.dart';
-import 'package:serenita/foundation/helpers/functions/messenger.dart';
 import 'package:serenita/presentation/screens/health_journal_screen.dart';
 import 'package:serenita/presentation/screens/mood_screen.dart';
 import 'package:serenita/presentation/screens/notifications_screen.dart';
 import 'package:serenita/presentation/screens/score_screen.dart';
-import 'package:serenita/presentation/screens/startup_screen.dart';
 import 'package:serenita/presentation/widgets/common/app_bar_custom.dart';
-import 'package:serenita/presentation/widgets/common/button_custom.dart';
 import 'package:serenita/supplies/constants/theme_globals.dart';
 import 'package:serenita/supplies/extensions/build_context_ext.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart'; // to ensure successful data fetch from firestore
-import 'package:firebase_auth/firebase_auth.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -28,56 +21,31 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  final CollectionReference usersCollection = FirebaseFirestore.instance.collection('Users');
-  final String? userId = FirebaseAuth.instance.currentUser?.uid;
   Map<String, dynamic>? userData;
 
   @override
   void initState() {
     super.initState();
-    _fetchUserData();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await fetchData();
+    });
   }
 
-  Future<void> _fetchUserData() async {
-    if (userId != null) {
-      final userSnapshot = await usersCollection.doc(userId).get();
-      if (userSnapshot.exists) {
-        setState(() {
-          userData = userSnapshot.data() as Map<String, dynamic>;
-        });
-      }
-    }
+  fetchData() async {
+    final result = await getIt<UserRelatedRemoteData>().fetchUserDetails();
+
+    setState(() {
+      userData = result;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: lightBrownColor,
-      appBar: AppBarCustom(
+      appBar: const AppBarCustom(
         title: 'Dashboard',
-        actions: [
-          ButtonCustom(
-            title: context.tr('log_out').toUpperCase(),
-            width: 100.0,
-            height: 40.0,
-            bgColor: brownColor,
-            onPressed: () async {
-              showStyledConfirmationDialog(
-                context: context,
-                message: 'Do you want to log out?',
-                cancelLabel: 'No',
-                confirmLabel: 'Yes',
-                onConfirmed: () async {
-                  await getIt<UserRelatedRemoteData>().signOut();
-
-                  // ignore: use_build_context_synchronously
-                  context.pushAndRemoveUntil(StartUpScreen());
-                },
-              );
-            },
-          ),
-          const SizedBox(width: 12.0),
-        ],
       ),
       body: _buildBody(),
     );

@@ -40,8 +40,6 @@ class UserRelatedRemoteData {
 
       final String userId = result.user!.uid;
 
-      await _userRelatedLocalData.storeUserId(userId);
-
       await FirebaseFirestore.instance.collection('Users').doc(userId).set({
         'user_id': userId,
         'name': null,
@@ -137,12 +135,26 @@ class UserRelatedRemoteData {
     return null;
   }
 
+  Future<Map<String, dynamic>?> fetchUserDetails() async {
+    final String? userId = FirebaseAuth.instance.currentUser?.uid;
+    Map<String, dynamic>? userData;
+
+    if (userId != null) {
+      final userSnapshot = await FirebaseFirestore.instance.collection('Users').doc(userId).get();
+      if (userSnapshot.exists) {
+        userData = userSnapshot.data() as Map<String, dynamic>;
+      }
+    }
+
+    return userData;
+  }
+
   Future<void> setProfileDetails(
     String firstName,
     String lastName,
   ) async {
     try {
-      final userId = _userRelatedLocalData.userId;
+      final userId = FirebaseAuth.instance.currentUser?.uid;
 
       await FirebaseFirestore.instance.collection('Users').doc(userId).update({
         'name': firstName,
@@ -178,7 +190,6 @@ class UserRelatedRemoteData {
       await signOutFromGoogle();
       await _facebookAuth.logOut();
       await _userRelatedLocalData.storeIsLoggedIn(false);
-      await _userRelatedLocalData.storeUserId('');
     } catch (e) {
       log('Something went wrong $e');
     }
