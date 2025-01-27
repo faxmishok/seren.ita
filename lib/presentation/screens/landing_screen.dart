@@ -36,7 +36,7 @@ class LandingScreen extends StatelessWidget {
               text: 'Welcome to the ultimate ',
               children: [
                 TextSpan(
-                  text: 'Serenita!',
+                  text: 'Seren.iTà!',
                   style: size28weight700.copyWith(color: const Color(0xff926247)),
                 ),
               ],
@@ -46,7 +46,7 @@ class LandingScreen extends StatelessWidget {
           ),
           const SizedBox24(),
           AutoSizeText(
-            'Your mindful mental health AI companion for everyone, anywhere 🍃',
+            'Your mindful mental health AI companion for everyone, anywhere. 🍃',
             textAlign: TextAlign.center,
             style: size18weight500.copyWith(color: brownColor.withValues(alpha: 0.65)),
           ),
