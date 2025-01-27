@@ -86,7 +86,7 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
               controller: _titleController, // Attach the controller
               labelText: 'Journal Title',
               labelColor: brownColor,
-              labelFontSize: 14.0,
+              labelFontSize: 20.0,
               labelFontWeight: FontWeight.w800,
               showInputTitle: true,
               inputFillColor: whiteColor,
@@ -148,9 +148,9 @@ class _NewJournalEntryScreenState extends State<NewJournalEntryScreen> {
       child: TextFieldCustom(
         controller: _descriptionController, // Attach the controller
         labelText: 'Write your entry',
-        placeholder: '',
+        placeholder: 'I had a bad day today, at school... It is fine I guess...',
         labelColor: brownColor,
-        labelFontSize: 14.0,
+        labelFontSize: 20.0,
         labelFontWeight: FontWeight.w800,
         showInputTitle: true,
         inputFillColor: whiteColor,

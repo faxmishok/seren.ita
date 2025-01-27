@@ -227,6 +227,7 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
             },
             autofillHints: widget.autofillHints,
             maxLines: widget.textFieldMaxLines,
+            textAlignVertical: TextAlignVertical.top, // Align placeholder text to the top
             style: TextStyle(
               color: showError ? errorColor : const Color(0xff090E1D).withValues(alpha: 0.64),
               fontSize: 16.0,
@@ -235,8 +236,9 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
               fontFamily: 'Urbanist',
             ),
             decoration: InputDecoration(
+              contentPadding: const EdgeInsets.only(top: 12.0, left: 16.0), // Adjust padding
               hintText: widget.hint,
-              alignLabelWithHint: widget.alignLabelWithHint,
+              alignLabelWithHint: true, // Align hint text with the field alignment
               hintStyle: TextStyle(
                 color: widget.placeholderColor,
                 fontSize: widget.placeholderFontSize,
@@ -246,10 +248,10 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
               ),
               suffixIcon: showError
                   ? const Icon(
-                      Icons.error_outline_rounded,
-                      color: errorColor,
-                      size: 20.0,
-                    )
+                Icons.error_outline_rounded,
+                color: errorColor,
+                size: 20.0,
+              )
                   : null,
               errorMaxLines: 3,
               errorStyle: const TextStyle(
@@ -287,9 +289,9 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
                 ),
                 borderSide: widget.hasBorder
                     ? BorderSide(
-                        color: widget.borderColor,
-                        width: 1,
-                      )
+                  color: widget.borderColor,
+                  width: 1,
+                )
                     : BorderSide.none,
               ),
               disabledBorder: OutlineInputBorder(
@@ -298,9 +300,9 @@ class _TextFieldCustomState extends State<TextFieldCustom> {
                 ),
                 borderSide: widget.hasBorder
                     ? const BorderSide(
-                        color: grey400Color,
-                        width: 0.5,
-                      )
+                  color: grey400Color,
+                  width: 0.5,
+                )
                     : BorderSide.none,
               ),
               errorBorder: OutlineInputBorder(
