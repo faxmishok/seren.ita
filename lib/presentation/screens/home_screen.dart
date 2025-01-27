@@ -3,7 +3,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
+import 'package:serenita/presentation/screens/chatbot_screen.dart';
 import 'package:serenita/presentation/screens/dashboard_screen.dart';
+import 'package:serenita/presentation/screens/mood_stats_screen.dart';
 import 'package:serenita/presentation/screens/profile_screen.dart';
 import 'package:serenita/presentation/screens/sleep_time_screen.dart';
 import 'package:serenita/presentation/widgets/common/button_custom.dart';
@@ -22,8 +24,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List screens = [
     const DashboardScreen(),
-    const DashboardScreen(),
-    const DashboardScreen(),
+    const ChatbotScreen(),
+    const MoodStatsScreen(),
     const ProfileScreen(),
   ];
 
