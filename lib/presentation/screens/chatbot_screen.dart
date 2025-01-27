@@ -36,7 +36,7 @@ class ChatbotScreen extends StatelessWidget {
           ),
           const SizedBox50(),
           AutoSizeText(
-            'Talk to Doctor MeWay AI',
+            'Talk to Doctor Serenita AI',
             textAlign: TextAlign.center,
             style: size24weight800.copyWith(
               color: brownColor,
