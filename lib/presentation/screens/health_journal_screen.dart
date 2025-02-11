@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
 import 'package:serenita/presentation/screens/new_journal_entry_screen.dart';
@@ -143,11 +144,14 @@ class _HealthJournalScreenState extends State<HealthJournalScreen> {
               ),
             ],
           ),
-          Image.asset('assets/images/journal-history.png'),
+          SizedBox(
+            width: kIsWeb ? 375.0 : context.width,
+            child: Image.asset('assets/images/journal-history.png'),
+          ),
           const SizedBox24(),
           Container(
             height: 35.0,
-            width: context.width,
+            width: kIsWeb ? 375.0 : context.width,
             decoration: BoxDecoration(
               color: const Color(0xffF7F4F2),
               borderRadius: BorderRadius.circular(100.0),

@@ -34,66 +34,68 @@ class _MoodStatsScreenState extends State<MoodStatsScreen> with TickerProviderSt
   }
 
   Widget _buildBody() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox100(),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AutoSizeText(
-                    'Mood Stats',
-                    style: size36weight800.copyWith(
-                      color: brownColor,
-                      letterSpacing: -1,
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox100(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AutoSizeText(
+                      'Mood Stats',
+                      style: size36weight800.copyWith(
+                        color: brownColor,
+                        letterSpacing: -1,
+                      ),
                     ),
-                  ),
-                  AutoSizeText(
-                    'See your mood throught the day.',
-                    style: size18weight500.copyWith(
-                      color: const Color(0xFF1F160F).withValues(alpha: 0.64),
-                      letterSpacing: -0.5,
+                    AutoSizeText(
+                      'See your mood throught the day.',
+                      style: size18weight500.copyWith(
+                        color: const Color(0xFF1F160F).withValues(alpha: 0.64),
+                        letterSpacing: -0.5,
+                      ),
                     ),
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: brownColor,
                   ),
-                ],
-              ),
-              Container(
-                padding: const EdgeInsets.all(16.0),
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: brownColor,
+                  child: const Icon(
+                    FontAwesomeIcons.chartSimple,
+                    color: whiteColor,
+                  ),
                 ),
-                child: const Icon(
-                  FontAwesomeIcons.chartSimple,
-                  color: whiteColor,
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        const SizedBox24(),
-        _buildTabs(),
-        SizedBox(
-          height: 300.0,
-          child: TabBarView(
-            controller: tabController,
-            children: [
-              Image.asset('assets/images/mood-stats.png'),
-              Image.asset('assets/images/mood-stats.png'),
-              Image.asset('assets/images/mood-stats.png'),
-              Image.asset('assets/images/mood-stats.png'),
-              Image.asset('assets/images/mood-stats.png'),
-            ],
+          const SizedBox24(),
+          _buildTabs(),
+          SizedBox(
+            height: 300.0,
+            child: TabBarView(
+              controller: tabController,
+              children: [
+                Image.asset('assets/images/mood-stats.png'),
+                Image.asset('assets/images/mood-stats.png'),
+                Image.asset('assets/images/mood-stats.png'),
+                Image.asset('assets/images/mood-stats.png'),
+                Image.asset('assets/images/mood-stats.png'),
+              ],
+            ),
           ),
-        ),
-        const SizedBox24(),
-        Image.asset('assets/images/mood-predictions.png'),
-      ],
+          const SizedBox24(),
+          Image.asset('assets/images/mood-predictions.png'),
+        ],
+      ),
     );
   }
 

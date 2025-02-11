@@ -13,9 +13,16 @@ class HiveService {
   }
 
   Future<void> init() async {
-    final directory = await getApplicationDocumentsDirectory();
-    final path = directory.path;
-    Hive.init(path);
+
+    if (kIsWeb) {
+      const directory = 'assets/db';
+      const path = directory;
+      Hive.init(path);
+    } else {
+      final directory = await getApplicationDocumentsDirectory();
+      final path = directory.path;
+      Hive.init(path);
+    }
 
     Hive.registerAdapter(UserInfoHiveAdapter());
 

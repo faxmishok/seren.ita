@@ -90,7 +90,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                 children: [
                   ClipOval(
                     child: CachedNetworkImage(
-                      imageUrl: 'https://wallpapers.com/images/hd/minecraft-profile-pictures-1242-x-1235-zix8e1u4kw9zj3cj.jpg',
+                      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Userbox_creeper.svg/800px-Userbox_creeper.svg.png',
                       height: 130.0,
                       width: 130.0,
                       placeholder: (context, url) => const CircularProgressIndicator(),

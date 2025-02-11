@@ -11,7 +11,7 @@ class UserRelatedRemoteData {
   final _auth = FirebaseAuth.instance;
 
   UserRelatedLocalData get _userRelatedLocalData => getIt<UserRelatedLocalData>();
-  final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final GoogleSignIn _googleSignIn = GoogleSignIn(clientId: '74893842062-st7cso6sk6a4qgfjhm8v046f5v7jmm32.apps.googleusercontent.com');
   final FacebookAuth _facebookAuth = FacebookAuth.instance;
 
   Future<User?> signIn(String email, String password) async {

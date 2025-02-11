@@ -29,94 +29,95 @@ class _NotificationsSetupScreenState extends State<NotificationsSetupScreen> {
   }
 
   Widget _buildBody() {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          alignment: Alignment.topCenter,
-          image: AssetImage('assets/images/notification-setup.png'),
+    return SingleChildScrollView(
+      child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            alignment: Alignment.topCenter,
+            image: AssetImage('assets/images/notification-setup.png'),
+          ),
         ),
-      ),
-      child: Column(
-        children: [
-          Container(
-            padding: spacing16.copyWith(top: 40.0),
-            width: context.width,
-            child: Row(
-              children: [
-                GestureDetector(
-                  onTap: () => context.pop(),
-                  child: const Icon(
-                    Icons.arrow_back_ios,
-                    color: brownColor,
+        child: Column(
+          children: [
+            Container(
+              padding: spacing16.copyWith(top: 40.0),
+              width: context.width,
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => context.pop(),
+                    child: const Icon(
+                      Icons.arrow_back_ios,
+                      color: brownColor,
+                    ),
                   ),
-                ),
-                const SizedBox(width: 24.0),
-                AutoSizeText(
-                  'Notification Setup',
-                  style: size20weight700.copyWith(color: brownColor),
-                ),
-              ],
+                  const SizedBox(width: 24.0),
+                  AutoSizeText(
+                    'Notification Setup',
+                    style: size20weight700.copyWith(color: brownColor),
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: context.height / 2),
-          _buildNotificationItem(
-            'assets/images/chatbox-notification.png',
-            'Chatbox Notification',
-            _value1,
-            (val) {
-              setState(() {
-                _value1 = val;
-              });
-            },
-          ),
-          const SizedBox12(),
-          _buildNotificationItem(
-            'assets/images/wellness-notification.png',
-            'Wellness Notification',
-            _value2,
-            (val) {
-              setState(() {
-                _value2 = val;
-              });
-            },
-          ),
-          const SizedBox12(),
-          _buildNotificationItem(
-            'assets/images/tea-notification.png',
-            '5 Min Chai- Tea Notification',
-            _value3,
-            (val) {
-              setState(() {
-                _value3 = val;
-              });
-            },
-          ),
-          const SizedBox12(),
-          _buildNotificationItem(
-            'assets/images/community-notification.png',
-            'Community Notification',
-            _value4,
-            (val) {
-              setState(() {
-                _value4 = val;
-              });
-            },
-          ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: ButtonCustom(
-              borderRadius: 100.0,
-              bgColor: brownColor,
-              title: 'Continue',
-              fontSize: 18.0,
-              fontWeight: FontWeight.w800,
-              height: 60.0,
-              onPressed: () => context.push(const AllSetScreen()),
+            SizedBox(height: context.height / 2),
+            _buildNotificationItem(
+              'assets/images/chatbox-notification.png',
+              'Chatbox Notification',
+              _value1,
+              (val) {
+                setState(() {
+                  _value1 = val;
+                });
+              },
             ),
-          ),
-          const SizedBox24(),
-        ],
+            const SizedBox12(),
+            _buildNotificationItem(
+              'assets/images/wellness-notification.png',
+              'Wellness Notification',
+              _value2,
+              (val) {
+                setState(() {
+                  _value2 = val;
+                });
+              },
+            ),
+            const SizedBox12(),
+            _buildNotificationItem(
+              'assets/images/tea-notification.png',
+              '5 Min Chai- Tea Notification',
+              _value3,
+              (val) {
+                setState(() {
+                  _value3 = val;
+                });
+              },
+            ),
+            const SizedBox12(),
+            _buildNotificationItem(
+              'assets/images/community-notification.png',
+              'Community Notification',
+              _value4,
+              (val) {
+                setState(() {
+                  _value4 = val;
+                });
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: ButtonCustom(
+                borderRadius: 100.0,
+                bgColor: brownColor,
+                title: 'Continue',
+                fontSize: 18.0,
+                fontWeight: FontWeight.w800,
+                height: 60.0,
+                onPressed: () => context.push(const AllSetScreen()),
+              ),
+            ),
+            const SizedBox24(),
+          ],
+        ),
       ),
     );
   }
