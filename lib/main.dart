@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:serenita/app.dart';
 import 'package:serenita/foundation/helpers/classes/app_bloc_observer.dart';
 import 'package:serenita/foundation/helpers/functions/locator.dart';
@@ -19,6 +20,14 @@ void main() async {
           )
         : null,
   );
+
+  await FacebookAuth.i.webAndDesktopInitialize(
+    appId: '579366831688029',
+    cookie: true,
+    xfbml: true,
+    version: 'v15.0',
+  );
+
   await EasyLocalization.ensureInitialized();
 
   await setupLocator();
