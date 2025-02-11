@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:serenita/foundation/data/remote/user_related_remote_data.dart';
 import 'package:serenita/foundation/helpers/classes/sized_boxes.dart';
@@ -75,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox70(),
             ClipOval(
               child: CachedNetworkImage(
-                imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Userbox_creeper.svg/800px-Userbox_creeper.svg.png',
+                imageUrl: kIsWeb ? '' : 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Userbox_creeper.svg/800px-Userbox_creeper.svg.png',
                 height: 130.0,
                 width: 130.0,
                 placeholder: (context, url) => const CircularProgressIndicator(),
