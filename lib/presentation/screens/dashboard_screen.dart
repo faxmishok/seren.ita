@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:serenita/foundation/data/remote/user_related_remote_data.dart';
@@ -113,7 +112,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 ClipOval(
                   child: CachedNetworkImage(
-                    imageUrl: kIsWeb ? '' : 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Userbox_creeper.svg/800px-Userbox_creeper.svg.png',
+                    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Userbox_creeper.svg/800px-Userbox_creeper.svg.png',
                     height: 60.0,
                     width: 60.0,
                     placeholder: (context, url) => const CircularProgressIndicator(),

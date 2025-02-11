@@ -1,5 +1,3 @@
-import 'dart:typed_data';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -91,7 +89,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                 children: [
                   ClipOval(
                     child: CachedNetworkImage(
-                      imageUrl: kIsWeb ? '' : 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Userbox_creeper.svg/800px-Userbox_creeper.svg.png',
+                      imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Userbox_creeper.svg/800px-Userbox_creeper.svg.png',
                       height: 130.0,
                       width: 130.0,
                       placeholder: (context, url) => const CircularProgressIndicator(),
